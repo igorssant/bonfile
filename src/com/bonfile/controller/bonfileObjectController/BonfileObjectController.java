@@ -27,46 +27,31 @@ public class BonfileObjectController {
     }
 
     public String getObjectName() {
-        return objectName;
+        return this.bonfileObject.getObjectName();
     }
 
     public void setObjectName(String objectName) {
-        if(!objectName.isEmpty()) {
-            throw new RuntimeException(
-                    "The object " + this.objectName + " already has a name.\n"
-                            + "If you really want to rename this class please use the ***renameObject(String)*** method."
-            );
-        } else {
-            this.objectName = objectName;
-        }
+        this.bonfileObject.setObjectName(objectName);
     }
 
     public void renameObject(String newName) {
-        this.objectName = newName;
+        this.bonfileObject.renameObject(newName);
     }
 
     public String getObjectClass() {
-        return objectClass;
+        return this.bonfileObject.getObjectClass();
     }
 
     public void setObjectClass(String objectClass) {
-        if(!this.objectClass.isEmpty()) {
-            throw new RuntimeException(
-                    "This object " + this.objectName + " already has a Class.\n"
-                            + "Class: " + this.objectClass + " .\n"
-                            + "If you really want to change its Class please use the ***resetClass(String)*** method."
-            );
-        } else {
-            this.objectClass = capitalize(objectClass);
-        }
+        this.bonfileObject.setObjectClass(objectClass);
     }
 
     public void resetClass(String newClass) {
-        this.objectClass = newClass;
+        this.bonfileObject.resetClass(newClass);
     }
 
     public HashMap<String, Object> getBonfileObject() {
-        return bonfileObject;
+        return this.bonfileObject.getBonfileObject();
     }
 
     public void setBonfileObject(HashMap<String, Object> bonfileObject) {

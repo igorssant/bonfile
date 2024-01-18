@@ -45,12 +45,14 @@ public class AppendController {
 
         this.file.writeBytes(
             Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
-            + Tokens.TOKENS.get("INDENTATION")
+            + Tokens.TOKENS.get("NEW_LINE")
         );
 
         for(Map.Entry<String, Object> entry : classObject.getBonfileObject().entrySet()) {
             String key = entry.getKey();
             String value;
+
+            this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
 
             if(entry.getValue() instanceof Integer) {
                 writeInteger(key, (Integer) entry.getValue());
@@ -123,12 +125,13 @@ public class AppendController {
                     }
                 }
             }
-            if(!Objects.equals(key, lastKey)) {
-                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            }
         }
 
-        this.file.writeBytes(Tokens.TOKENS.get("OPEN_CURLY_BRACKET"));
+        this.file.writeBytes(
+            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
+            + Tokens.TOKENS.get("SEMICOLON")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
         updateCaretPosition();
     }
 

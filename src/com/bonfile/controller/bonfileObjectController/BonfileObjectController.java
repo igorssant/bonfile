@@ -26,6 +26,14 @@ public class BonfileObjectController {
         this.bonfileObject = bonfileObject;
     }
 
+    public void resetBonfileObject(BonfileObject bonfileObject) {
+        this.bonfileObject = bonfileObject;
+    }
+
+    public BonfileObject getBonfileObject() {
+        return bonfileObject;
+    }
+
     public String getObjectName() {
         return this.bonfileObject.getObjectName();
     }
@@ -50,7 +58,7 @@ public class BonfileObjectController {
         this.bonfileObject.resetClass(newClass);
     }
 
-    public HashMap<String, Object> getBonfileObject() {
+    public HashMap<String, Object> getBonfileObjectBody() {
         return this.bonfileObject.getBonfileObject();
     }
 

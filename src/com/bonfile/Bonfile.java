@@ -1,6 +1,7 @@
 package com.bonfile;
 
 import com.bonfile.controller.appendController.AppendController;
+import com.bonfile.controller.bonfileObjectController.BonfileObjectController;
 import com.bonfile.util.tokens.Tokens;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,6 +40,14 @@ public class Bonfile {
             linkedList.add("GENGAR");
 
             appendController.writeList("lista", linkedList, 5);
+
+            BonfileObjectController bonfileObjectController = new BonfileObjectController("someone", "person");
+            bonfileObjectController.put("age", 23);
+            bonfileObjectController.put("city", "somewhere");
+            bonfileObjectController.put("state", "bahia");
+            bonfileObjectController.put("country", "brazil");
+
+            appendController.writeObject(bonfileObjectController.getBonfileObject());
 
             appendController.close();
         } catch (Exception e) {

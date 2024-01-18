@@ -18,3 +18,9 @@ lista::str = [
 	"HAUNTER",
 	"GENGAR"
 ];
+someone::person = {
+	country::str = "brazil";
+	city::str = "somewhere";
+	state::str = "bahia";
+	age::int = 23;
+};

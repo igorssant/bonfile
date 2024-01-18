@@ -56,7 +56,7 @@ public class BonfileObject {
         }
     }
 
-    public void resetClasse(String newClass) {
+    public void resetClass(String newClass) {
         this.objectClass = newClass;
     }
 

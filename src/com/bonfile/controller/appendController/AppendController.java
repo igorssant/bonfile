@@ -115,7 +115,7 @@ public class AppendController {
                     }
                 } else {
                     if(entry.getValue().getClass() == HashMap[].class) {
-                        writeDictList(key, (HashMap<String, String>[]) entry.getValue());
+                        writeDictArray(key, (HashMap<String, String>[]) entry.getValue());
                     } else {
                         LinkedList<BonfileObject> list = (LinkedList <BonfileObject>) entry.getValue();
 
@@ -135,8 +135,23 @@ public class AppendController {
         updateCaretPosition();
     }
 
-    private void writeDictList(String key, HashMap<String, String>[] value) {
-        /* CODE GOES HERE */
+    private void writeDictArray(String key, HashMap<String, String>[] value) throws IOException {
+        writeVariable(key, 6);
+        file.writeBytes(
+            Tokens.TOKENS.get("OPEN_BRACKET")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
+
+        for(int i = 0; i < value.length; i++) {
+            file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            writeDict(value[i]);
+        }
+
+        file.writeBytes(
+            Tokens.TOKENS.get("CLOSE_BRACKET")
+            + Tokens.TOKENS.get("SEMICOLON")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
     }
 
     public void writeList(LinkedList<Object> linkedList) throws IOException {
@@ -267,6 +282,7 @@ public class AppendController {
                 + Tokens.TOKENS.get("NEW_LINE")
             );
         }
+
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -297,6 +313,7 @@ public class AppendController {
                     + Tokens.TOKENS.get("NEW_LINE")
             );
         }
+
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
                 + Tokens.TOKENS.get("SEMICOLON")
@@ -304,6 +321,34 @@ public class AppendController {
         );
 
         updateCaretPosition();
+    }
+
+    public void writeDictArrayMember(HashMap<String, String> dict) throws IOException {
+        file.writeBytes(
+            Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
+
+        for(Map.Entry<String, String> entry : dict.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            file.writeBytes(
+                Tokens.TOKENS.get("INDENTATION")
+                + Tokens.TOKENS.get("INDENTATION")
+                + key
+                + Tokens.TOKENS.get("SPACE")
+                + Tokens.TOKENS.get("COLON")
+                + Tokens.TOKENS.get("SPACE")
+                + value
+                + Tokens.TOKENS.get("NEW_LINE")
+            );
+        }
+
+        file.writeBytes(
+            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
+            + Tokens.TOKENS.get("COMMA")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
     }
 
     private void writeVariable(String varName, Integer objectType) throws IOException {

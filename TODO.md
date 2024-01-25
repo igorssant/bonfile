@@ -23,6 +23,8 @@
 * Implement the *Read* Class
   * The skeleton is already done
   * The focus is on the *Controller* Class for it
+* Implement the ***Singleton* project pattern** for both write, read, append and read&write classes
+* Verify if the ***Mediator* project pattern** is working correctly throughout the project
 <br>
 <br>
 <br>

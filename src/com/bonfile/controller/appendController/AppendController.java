@@ -47,12 +47,15 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         for(Map.Entry<String, Object> entry : classObject.getBonfileObject().entrySet()) {
             String key = entry.getKey();
             String value;
 
-            this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            for(int i = 0; i < append.getIndentationCounter(); i++) {
+                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            }
 
             if(entry.getValue() instanceof Integer) {
                 writeInteger(key, (Integer) entry.getValue());
@@ -127,6 +130,7 @@ public class AppendController {
             }
         }
 
+        append.decreaseIndentationCounter();
         this.file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -141,12 +145,17 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
-        for(int i = 0; i < value.length; i++) {
+        for(int i = 0; i < append.getIndentationCounter(); i++) {
             file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            writeDict(value[i]);
         }
 
+        for(HashMap<String, String> currentValue : value) {
+            writeDict(currentValue);
+        }
+
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -161,6 +170,7 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         if(linkedList.getFirst() instanceof Character) {
             while(iterator.hasNext()){
@@ -180,6 +190,7 @@ public class AppendController {
             }
         }
 
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -196,6 +207,7 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         if(linkedList.getFirst() instanceof Character) {
             while(iterator.hasNext()){
@@ -215,6 +227,7 @@ public class AppendController {
             }
         }
 
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -224,7 +237,9 @@ public class AppendController {
     }
 
     private void writeListMember(Object listMember, Integer memberType, Boolean notLast) throws IOException {
-        file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+        for(int i = 0; i < append.getIndentationCounter(); i++) {
+            this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+        }
 
         switch(memberType) {
             case 0:
@@ -268,13 +283,18 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+
+            for(int i = 0; i < append.getIndentationCounter(); i++) {
+                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            }
+
             file.writeBytes(
-                Tokens.TOKENS.get("INDENTATION")
-                + key
+                key
                 + Tokens.TOKENS.get("SPACE")
                 + Tokens.TOKENS.get("COLON")
                 + Tokens.TOKENS.get("SPACE")
@@ -283,6 +303,7 @@ public class AppendController {
             );
         }
 
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
             + Tokens.TOKENS.get("SEMICOLON")
@@ -299,21 +320,27 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+
+            for(int i = 0; i < append.getIndentationCounter(); i++) {
+                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            }
+
             file.writeBytes(
-                Tokens.TOKENS.get("INDENTATION")
-                    + key
-                    + Tokens.TOKENS.get("SPACE")
-                    + Tokens.TOKENS.get("COLON")
-                    + Tokens.TOKENS.get("SPACE")
-                    + value
-                    + Tokens.TOKENS.get("NEW_LINE")
+                key
+                + Tokens.TOKENS.get("SPACE")
+                + Tokens.TOKENS.get("COLON")
+                + Tokens.TOKENS.get("SPACE")
+                + value
+                + Tokens.TOKENS.get("NEW_LINE")
             );
         }
 
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
                 + Tokens.TOKENS.get("SEMICOLON")
@@ -328,14 +355,18 @@ public class AppendController {
             Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
             + Tokens.TOKENS.get("NEW_LINE")
         );
+        append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
+
+            for(int i = 0; i < append.getIndentationCounter(); i++) {
+                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+            }
+
             file.writeBytes(
-                Tokens.TOKENS.get("INDENTATION")
-                + Tokens.TOKENS.get("INDENTATION")
-                + key
+                key
                 + Tokens.TOKENS.get("SPACE")
                 + Tokens.TOKENS.get("COLON")
                 + Tokens.TOKENS.get("SPACE")
@@ -344,6 +375,7 @@ public class AppendController {
             );
         }
 
+        append.decreaseIndentationCounter();
         file.writeBytes(
             Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
             + Tokens.TOKENS.get("COMMA")
@@ -387,7 +419,7 @@ public class AppendController {
                 break;
 
             default:
-                System.err.println("WRONG ARGUMENT ***objectNote***\nPlease note that the types range from 0 to 6.\n");
+                System.err.println("WRONG ARGUMENT ***objectType***\nPlease note that the types range from 0 to 6.\n");
                 System.exit(-1);
         }
 

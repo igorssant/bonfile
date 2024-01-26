@@ -1,4 +1,4 @@
-package com.bonfile.model.reader;
+package com.bonfile.model.read;
 
 import com.bonfile.model.file.File;
 

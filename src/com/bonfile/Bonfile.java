@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Bonfile {
-
     public static void printAllTokens() {
         Tokens tokens = new Tokens();
         System.out.println(Tokens.TOKENS);

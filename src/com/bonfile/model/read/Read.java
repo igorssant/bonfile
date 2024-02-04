@@ -35,4 +35,21 @@ public class Read extends File {
     public void rewind() {
         setCurrentLine(0);
     }
+
+    public void increaseIndentation() {
+        super.setIndentationCounter(1);
+    }
+
+    public void decreaseIndentationCounter() {
+        if(super.getIndentationCounter() > 0) {
+            super.setIndentationCounter(-1);
+        } else {
+            throw new RuntimeException("Indentation counter cannot assume negative values.");
+        }
+    }
+
+    @Override
+    public Integer getIndentationCounter() {
+        return super.getIndentationCounter();
+    }
 }

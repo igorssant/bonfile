@@ -21,5 +21,39 @@ public class ReadController {
         file.seek(0);
     }
 
+    private Read getRead() {
+        return read;
+    }
 
+    public void setRead(Read read) {
+        this.read = read;
+    }
+
+    public RandomAccessFile getFile() {
+        return file;
+    }
+
+    public void setFile(RandomAccessFile file) {
+        this.file = file;
+    }
+
+    public String getFileName() {
+        return this.read.getFileName();
+    }
+
+    public Integer getCurrentLine() {
+        return this.read.getCurrentLine();
+    }
+
+    public void setCurrentLine(Integer currentLine) {
+        this.read.setCurrentLine(currentLine);
+    }
+
+    public String getFilePath() {
+        return this.read.getFilePath();
+    }
+
+    public void rewind() {
+        this.read.setCurrentLine(0);
+    }
 }

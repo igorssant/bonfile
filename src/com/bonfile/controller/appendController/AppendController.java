@@ -39,23 +39,48 @@ public class AppendController {
         this.file = file;
     }
 
+    private void openBracket(Boolean isCurly) throws IOException {
+        if(isCurly) {
+            this.file.writeBytes(Tokens.TOKENS.get("OPEN_CURLY_BRACKET"));
+        } else {
+            this.file.writeBytes(Tokens.TOKENS.get("OPEN_BRACKET"));
+        }
+
+        this.file.writeBytes(Tokens.TOKENS.get("NEW_LINE"));
+    }
+
+    private void indentFile() throws IOException {
+        for(int i = 0; i < append.getIndentationCounter(); i++) {
+            this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
+        }
+    }
+
+    private void closeBracket(Boolean isCurly, Boolean endOfInstance) throws IOException {
+        if(isCurly) {
+            this.file.writeBytes(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET"));
+        } else {
+            this.file.writeBytes(Tokens.TOKENS.get("CLOSE_BRACKET"));
+        }
+
+        if(endOfInstance) {
+            this.file.writeBytes(Tokens.TOKENS.get("SEMICOLON"));
+        }
+
+        this.file.writeBytes(Tokens.TOKENS.get("NEW_LINE"));
+    }
+
     public void writeObject(BonfileObject classObject) throws IOException {
         Object lastKey = classObject.getBonfileObject().entrySet().stream().reduce((first, second) -> second).get();
         writeVariable(classObject.getObjectName(), classObject.getObjectClass());
 
-        this.file.writeBytes(
-            Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(true);
         append.increaseIndentation();
 
         for(Map.Entry<String, Object> entry : classObject.getBonfileObject().entrySet()) {
             String key = entry.getKey();
             String value;
 
-            for(int i = 0; i < append.getIndentationCounter(); i++) {
-                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            }
+            indentFile();
 
             if(entry.getValue() instanceof Integer) {
                 writeInteger(key, (Integer) entry.getValue());
@@ -131,45 +156,29 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        this.file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
-            + Tokens.TOKENS.get("SEMICOLON")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        closeBracket(true, true);
         updateCaretPosition();
     }
 
     private void writeDictArray(String key, HashMap<String, String>[] value) throws IOException {
         writeVariable(key, 6);
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(false);
         append.increaseIndentation();
 
-        for(int i = 0; i < append.getIndentationCounter(); i++) {
-            file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-        }
+        indentFile();
 
         for(HashMap<String, String> currentValue : value) {
             writeDict(currentValue);
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_BRACKET")
-            + Tokens.TOKENS.get("SEMICOLON")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        closeBracket(false, true);
     }
 
     public void writeList(LinkedList<Object> linkedList) throws IOException {
         ListIterator<Object> iterator = linkedList.listIterator();
 
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(false);
         append.increaseIndentation();
 
         if(linkedList.getFirst() instanceof Character) {
@@ -191,11 +200,7 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_BRACKET")
-            + Tokens.TOKENS.get("SEMICOLON")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        closeBracket(false, true);
         updateCaretPosition();
     }
 
@@ -203,10 +208,7 @@ public class AppendController {
         ListIterator<Object> iterator = linkedList.listIterator();
 
         writeVariable(varName, listType);
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(false);
         append.increaseIndentation();
 
         if(linkedList.getFirst() instanceof Character) {
@@ -228,18 +230,12 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_BRACKET")
-            + Tokens.TOKENS.get("SEMICOLON")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        closeBracket(false, true);
         updateCaretPosition();
     }
 
     private void writeListMember(Object listMember, Integer memberType, Boolean notLast) throws IOException {
-        for(int i = 0; i < append.getIndentationCounter(); i++) {
-            this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-        }
+        indentFile();
 
         switch(memberType) {
             case 0:
@@ -279,19 +275,14 @@ public class AppendController {
     }
 
     public void writeDict(HashMap<String, String> dict) throws IOException {
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(true);
         append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            for(int i = 0; i < append.getIndentationCounter(); i++) {
-                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            }
+            indentFile();
 
             file.writeBytes(
                 key
@@ -304,32 +295,20 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
-            + Tokens.TOKENS.get("SEMICOLON")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
-
+        closeBracket(true, true);
         updateCaretPosition();
     }
 
     public void writeDict(String varName, HashMap<String, String> dict) throws IOException {
         writeVariable(varName, 6);
-
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(true);
         append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            for(int i = 0; i < append.getIndentationCounter(); i++) {
-                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            }
-
+            indentFile();
             file.writeBytes(
                 key
                 + Tokens.TOKENS.get("SPACE")
@@ -341,30 +320,19 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
-                + Tokens.TOKENS.get("SEMICOLON")
-                + Tokens.TOKENS.get("NEW_LINE")
-        );
-
+        closeBracket(true, true);
         updateCaretPosition();
     }
 
     public void writeDictArrayMember(HashMap<String, String> dict) throws IOException {
-        file.writeBytes(
-            Tokens.TOKENS.get("OPEN_CURLY_BRACKET")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        openBracket(true);
         append.increaseIndentation();
 
         for(Map.Entry<String, String> entry : dict.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
 
-            for(int i = 0; i < append.getIndentationCounter(); i++) {
-                this.file.writeBytes(Tokens.TOKENS.get("INDENTATION"));
-            }
-
+            indentFile();
             file.writeBytes(
                 key
                 + Tokens.TOKENS.get("SPACE")
@@ -376,11 +344,7 @@ public class AppendController {
         }
 
         append.decreaseIndentationCounter();
-        file.writeBytes(
-            Tokens.TOKENS.get("CLOSE_CURLY_BRACKET")
-            + Tokens.TOKENS.get("COMMA")
-            + Tokens.TOKENS.get("NEW_LINE")
-        );
+        closeBracket(true, true);
     }
 
     private void writeVariable(String varName, Integer objectType) throws IOException {

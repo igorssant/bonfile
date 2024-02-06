@@ -2,7 +2,7 @@ package com.bonfile.model.bonfileObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import static com.bonfile.util.Capitalize.capitalize;
+import static com.bonfile.util.FileHelper.capitalize;
 
 public class BonfileObject {
     private String objectName;

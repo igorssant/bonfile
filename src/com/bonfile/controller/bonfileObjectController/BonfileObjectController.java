@@ -5,8 +5,6 @@ import com.bonfile.model.bonfileObject.BonfileObject;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import static com.bonfile.util.Capitalize.capitalize;
-
 public class BonfileObjectController {
     private BonfileObject bonfileObject;
 

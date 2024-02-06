@@ -283,15 +283,7 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-
-            file.writeBytes(
-                key
-                + Tokens.TOKENS.get("SPACE")
-                + Tokens.TOKENS.get("COLON")
-                + Tokens.TOKENS.get("SPACE")
-                + value
-                + Tokens.TOKENS.get("NEW_LINE")
-            );
+            writeDictLine(key, value);
         }
 
         append.decreaseIndentationCounter();
@@ -309,14 +301,7 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-            file.writeBytes(
-                key
-                + Tokens.TOKENS.get("SPACE")
-                + Tokens.TOKENS.get("COLON")
-                + Tokens.TOKENS.get("SPACE")
-                + value
-                + Tokens.TOKENS.get("NEW_LINE")
-            );
+            writeDictLine(key, value);
         }
 
         append.decreaseIndentationCounter();
@@ -333,18 +318,23 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-            file.writeBytes(
-                key
-                + Tokens.TOKENS.get("SPACE")
-                + Tokens.TOKENS.get("COLON")
-                + Tokens.TOKENS.get("SPACE")
-                + value
-                + Tokens.TOKENS.get("NEW_LINE")
-            );
+            writeDictLine(key, value);
         }
 
         append.decreaseIndentationCounter();
         closeBracket(true, true);
+    }
+
+    private void writeDictLine(String key, String value) throws IOException {
+        file.writeBytes(
+            key
+            + Tokens.TOKENS.get("SPACE")
+            + Tokens.TOKENS.get("COLON")
+            + Tokens.TOKENS.get("SPACE")
+            + value
+            + Tokens.TOKENS.get("COMMA")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
     }
 
     private void writeVariable(String varName, Integer objectType) throws IOException {

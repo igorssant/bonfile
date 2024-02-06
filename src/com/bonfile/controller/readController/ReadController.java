@@ -60,10 +60,20 @@ public class ReadController {
         this.read.setCurrentLine(0);
     }
 
-    private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName) {
+    private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
+        Integer curlyBracketCounter = 1,
+                bracketCounter = 0;
 
         bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
+        while(true) {
+            if (curlyBracketCounter == 0) {
+                break;
+            }
+
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            
+        }
         return null;
     }
 

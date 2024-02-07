@@ -62,19 +62,54 @@ public class ReadController {
 
     private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
-        Integer curlyBracketCounter = 1,
-                bracketCounter = 0;
+        Integer curlyBracketCounter = 1;
 
         bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
         while(true) {
-            if (curlyBracketCounter == 0) {
+            if(curlyBracketCounter == 0) {
                 break;
             }
 
             currLine = FileHelper.removeSpaces(this.file.readLine());
-            
+            String varName = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")));
+            Object varValue = currLine.substring(
+                currLine.indexOf(Tokens.TOKENS.get("LET_SIGN") + 2),
+                currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+            );
+
+            if(currLine.contains(Tokens.TOKENS.get("LET_SIGN"))) {
+                if(currLine.contains(Tokens.TOKENS.get("DICTIONARY"))) {
+                    /* GO TO THE readDict method */
+                } else if(currLine.contains(Tokens.TOKENS.get("OPEN_BRACKET"))) {
+                    /* GO TO THE readList method */
+                } else {
+                    bonfileObjectController.put(
+                        varName,
+                        getObjectFromFile(
+                            currLine,
+                            currLine
+                                .indexOf(
+                                    Tokens.TOKENS.get("LET_SIGN")
+                                )
+                        )
+                    );
+                }
+            } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))) {
+                /* GO TO THE readChar method */
+            } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"))) {
+                /* GO TO THE readString method */
+            } else if(varValue instanceof Boolean) {
+                /* GO TO THE readBool method */
+            } else if(varValue instanceof Integer) {
+                /* GO TO THE readInt method */
+            } else if(varValue instanceof Float) {
+                /* GO TO THE readFloat method */
+            } else {
+                /* GO TO THE readDouble method */
+            }
         }
-        return null;
+
+        return bonfileObjectController.getBonfileObject();
     }
 
     public BonfileObject readObject() throws IOException {

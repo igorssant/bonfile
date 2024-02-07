@@ -9,6 +9,7 @@ import com.bonfile.util.tokens.Tokens;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.HashMap;
 
 public class ReadController {
     private Read read;
@@ -128,15 +129,63 @@ public class ReadController {
         throw new IOException("Could not find any Objects in the Bonfile.");
     }
 
-    public BonfileObject readObject(Integer position) throws IOException {
-        if(position == 0) {
-            return readObject();
-        }
-
+    public BonfileObject readObject(String objectName) throws IOException {
         return null;
     }
 
-    public BonfileObject readLastObject() {
+    public HashMap<String, String> readDict() {
+        return null;
+    }
+
+    public HashMap<String, String> readDict(String dictName) {
+        return null;
+    }
+
+    public Integer readInteger() {
+        return null;
+    }
+
+    public Integer readInteger(String intName) {
+        return null;
+    }
+
+    public Float readFloat() {
+        return null;
+    }
+
+    public Float readFloat(String floatName) {
+        return null;
+    }
+
+    public Double readDouble() {
+        return null;
+    }
+
+    public Double readDouble(String doubleName) {
+        return null;
+    }
+
+    public Boolean readBoolean() {
+        return null;
+    }
+
+    public Boolean readBoolean(String booleanName) {
+        return null;
+    }
+
+    public Character readChar() {
+        return null;
+    }
+
+    public Character readChar(String charName) {
+        return null;
+    }
+
+    public String readString() {
+        return null;
+    }
+
+    public String readString(String floatName) {
         return null;
     }
 }

@@ -274,7 +274,12 @@ public class AppendController {
         file.writeBytes(Tokens.TOKENS.get("NEW_LINE"));
     }
 
+    public static Integer getDictSize(HashMap<String, String> hashMap) {
+        return hashMap.size();
+    }
+
     public void writeDict(HashMap<String, String> dict) throws IOException {
+        String lastKey = (String) dict.keySet().toArray()[getDictSize(dict) - 1];
         openBracket(true);
         append.increaseIndentation();
 
@@ -283,7 +288,11 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-            writeDictLine(key, value);
+            writeDictLine(
+                key,
+                value,
+                lastKey
+            );
         }
 
         append.decreaseIndentationCounter();
@@ -292,6 +301,7 @@ public class AppendController {
     }
 
     public void writeDict(String varName, HashMap<String, String> dict) throws IOException {
+        String lastKey = (String) dict.keySet().toArray()[getDictSize(dict) - 1];
         writeVariable(varName, 6);
         openBracket(true);
         append.increaseIndentation();
@@ -301,7 +311,11 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-            writeDictLine(key, value);
+            writeDictLine(
+                key,
+                value,
+                lastKey
+            );
         }
 
         append.decreaseIndentationCounter();
@@ -310,6 +324,7 @@ public class AppendController {
     }
 
     public void writeDictArrayMember(HashMap<String, String> dict) throws IOException {
+        String lastKey = (String) dict.keySet().toArray()[getDictSize(dict) - 1];
         openBracket(true);
         append.increaseIndentation();
 
@@ -318,23 +333,31 @@ public class AppendController {
             String value = entry.getValue();
 
             indentFile();
-            writeDictLine(key, value);
+            writeDictLine(
+                key,
+                value,
+                lastKey
+            );
         }
 
         append.decreaseIndentationCounter();
         closeBracket(true, true);
     }
 
-    private void writeDictLine(String key, String value) throws IOException {
+    private void writeDictLine(String key, String value, String lastKey) throws IOException {
         file.writeBytes(
             key
             + Tokens.TOKENS.get("SPACE")
             + Tokens.TOKENS.get("COLON")
             + Tokens.TOKENS.get("SPACE")
             + value
-            + Tokens.TOKENS.get("COMMA")
-            + Tokens.TOKENS.get("NEW_LINE")
         );
+
+        if(!key.equals(lastKey)) {
+            file.writeBytes(Tokens.TOKENS.get("COMMA"));
+        }
+
+        file.writeBytes(Tokens.TOKENS.get("NEW_LINE"));
     }
 
     private void writeVariable(String varName, Integer objectType) throws IOException {

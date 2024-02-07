@@ -1,7 +1,7 @@
 veiculos::dict = {
-	YATCH : RICO
-	MOTO : VEICULO
-	BICICLETA : POBRE
+	YATCH : RICO,
+	MOTO : VEICULO,
+	BICICLETA : POBRE,
 	CARRO : VEICULO
 };
 valor_inteiro::int = 1;

@@ -186,28 +186,133 @@ public class ReadController {
         throw new RuntimeException("This variable does not exists.");
     }
 
-    public Float readFloat() {
-        return null;
+    public Float readFloat() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine()),
+                possibleValue = currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
+                return Float.parseFloat(possibleValue);
+            }
+        }
+
+        throw new RuntimeException("The gathered data is not a Float type.");
     }
 
-    public Float readFloat(String floatName) {
-        return null;
+    public Float readFloat(String floatName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(floatName)) {
+                return Float.parseFloat(
+                    currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 2,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    )
+                );
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 
-    public Double readDouble() {
-        return null;
+    public Double readDouble() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine()),
+                possibleValue = currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
+                return Double.parseDouble(possibleValue);
+            }
+        }
+
+        throw new RuntimeException("The gathered data is not a Float type.");
     }
 
-    public Double readDouble(String doubleName) {
-        return null;
+    public Double readDouble(String doubleName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(doubleName)) {
+                return Double.parseDouble(
+                    currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 2,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    )
+                );
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 
-    public Boolean readBoolean() {
-        return null;
+    public Boolean readBoolean() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine()),
+                possibleValue = currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
+                return Boolean.parseBoolean(possibleValue);
+            }
+        }
+
+        throw new RuntimeException("The gathered data is not a Boolean type.");
     }
 
-    public Boolean readBoolean(String booleanName) {
-        return null;
+    public Boolean readBoolean(String booleanName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(booleanName)) {
+                return Boolean.parseBoolean(
+                    currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 2,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    )
+                );
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 
     public Character readChar() {

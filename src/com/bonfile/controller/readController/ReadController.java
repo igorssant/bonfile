@@ -14,7 +14,6 @@ import java.util.HashMap;
 public class ReadController {
     private Read read;
     private RandomAccessFile file;
-    private final Tokens TOKENS = new Tokens();
 
     public ReadController() {}
 
@@ -63,15 +62,16 @@ public class ReadController {
 
     private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
-        Integer curlyBracketCounter = 1;
 
         bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
         while(true) {
-            if(curlyBracketCounter == 0) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
                 break;
             }
 
-            currLine = FileHelper.removeSpaces(this.file.readLine());
             String varName = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")));
             Object varValue = currLine.substring(
                 currLine.indexOf(Tokens.TOKENS.get("LET_SIGN") + 2),
@@ -117,6 +117,8 @@ public class ReadController {
         String lineContent = null;
 
         while((lineContent = file.readLine()) != null) {
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
             if(lineContent.contains(Tokens.TOKENS.get("LET_SIGN"))) {
                 Integer indexOfLetSign = lineContent.indexOf(Tokens.TOKENS.get("LET_SIGN"));
 
@@ -141,8 +143,25 @@ public class ReadController {
         return null;
     }
 
-    public Integer readInteger() {
-        return null;
+    public Integer readInteger() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine()),
+                possibleValue = currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
+                return Integer.parseInt(possibleValue);
+            }
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+        }
+
+        throw new RuntimeException("The gathered data is not an Integer type.");
     }
 
     public Integer readInteger(String intName) {
@@ -187,5 +206,24 @@ public class ReadController {
 
     public String readString(String floatName) {
         return null;
+    }
+
+    private static Boolean isPrimitiveType(Object subject, String typeName) {
+        switch(typeName) {
+            case "int":
+                return subject instanceof Integer;
+
+            case "float":
+                return subject instanceof Float;
+
+            case "double":
+                return subject instanceof Double;
+
+            case "bool":
+                return subject instanceof Boolean;
+
+            default:
+                return false;
+        }
     }
 }

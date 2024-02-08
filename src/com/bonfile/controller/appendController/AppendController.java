@@ -12,7 +12,6 @@ import java.util.*;
 public class AppendController {
     private Append append;
     private RandomAccessFile file;
-    private final Tokens TOKENS = new Tokens();
 
     public AppendController() {}
 

@@ -14,6 +14,7 @@ public class Bonfile {
 
     public static void main(String [] args) {
         String path = "/home/igorsssantana/Documents/trabalho/intelliJ/bonfile/src/scratch.bon";
+
         try {
             AppendController appendController = new AppendController(path);
             HashMap<String, String> hashMap = new HashMap<>();

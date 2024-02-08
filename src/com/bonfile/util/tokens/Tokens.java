@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Tokens {
     public static final HashMap<String, String> TOKENS = new HashMap<>();
 
-    public Tokens(){
+    static {
         /* GENERAL USE TOKENS */
         TOKENS.put("SLASH_SIGN", "/");
         TOKENS.put("DASH_SIGN", "-");
@@ -43,5 +43,10 @@ public class Tokens {
         /* QUOTATION MARK TOKENS */
         TOKENS.put("SINGLE_QUOTE_MARK", "\'");
         TOKENS.put("DOUBLE_QUOTE_MARK", "\"");
+
+        /* THE COMMENTARY TOKENS */
+        TOKENS.put("SINGLE_LINE_COMMENTARY", "//");
+        TOKENS.put("OPEN_MULTILINE_COMMENTARY", "/*");
+        TOKENS.put("CLOSE_MULTILINE_COMMENTARY", "*/");
     }
 }

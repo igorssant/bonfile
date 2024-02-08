@@ -99,11 +99,11 @@ public class ReadController {
                 /* GO TO THE readChar method */
             } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"))) {
                 /* GO TO THE readString method */
-            } else if(varValue instanceof Boolean) {
+            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
                 /* GO TO THE readBool method */
-            } else if(varValue instanceof Integer) {
+            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
                 /* GO TO THE readInt method */
-            } else if(varValue instanceof Float) {
+            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
                 /* GO TO THE readFloat method */
             } else {
                 /* GO TO THE readDouble method */
@@ -152,20 +152,38 @@ public class ReadController {
                 );
             this.read.setCurrentLine((int) this.file.getFilePointer());
 
-            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
-                return Integer.parseInt(possibleValue);
-            }
-
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
+                return Integer.parseInt(possibleValue);
             }
         }
 
         throw new RuntimeException("The gathered data is not an Integer type.");
     }
 
-    public Integer readInteger(String intName) {
-        return null;
+    public Integer readInteger(String intName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(intName)) {
+                return Integer.parseInt(
+                    currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 2,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    )
+                );
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 
     public Float readFloat() {

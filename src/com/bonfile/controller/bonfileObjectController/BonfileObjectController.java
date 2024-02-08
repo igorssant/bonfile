@@ -1,6 +1,7 @@
 package com.bonfile.controller.bonfileObjectController;
 
 import com.bonfile.model.bonfileObject.BonfileObject;
+import com.bonfile.util.FileHelper;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -17,7 +18,7 @@ public class BonfileObjectController {
     }
 
     public BonfileObjectController(String objectName, String className) {
-        this.bonfileObject = new BonfileObject(objectName, className);
+        this.bonfileObject = new BonfileObject(objectName, FileHelper.capitalize(className));
     }
 
     public BonfileObjectController(BonfileObject bonfileObject) {

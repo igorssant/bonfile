@@ -18,7 +18,7 @@ lista::str = [
 	"HAUNTER",
 	"GENGAR"
 ];
-someone::person = {
+someone::Person = {
 	country::str = "brazil";
 	city::str = "somewhere";
 	state::str = "bahia";

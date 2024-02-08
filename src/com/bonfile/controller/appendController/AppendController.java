@@ -1,6 +1,7 @@
 package com.bonfile.controller.appendController;
 
 import com.bonfile.model.bonfileObject.BonfileObject;
+import com.bonfile.util.FileHelper;
 import com.bonfile.util.tokens.Tokens;
 import com.bonfile.model.append.Append;
 import com.bonfile.util.filePath.FilePath;

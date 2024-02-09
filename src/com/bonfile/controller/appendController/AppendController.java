@@ -164,7 +164,6 @@ public class AppendController {
         writeVariable(key, 6);
         openBracket(false);
         append.increaseIndentation();
-
         indentFile();
 
         for(HashMap<String, String> currentValue : value) {

@@ -1,7 +1,7 @@
 package com.bonfile.controller.appendController;
 
 import com.bonfile.model.bonfileObject.BonfileObject;
-import com.bonfile.util.FileHelper;
+import com.bonfile.util.fileHelper.FileHelper;
 import com.bonfile.util.tokens.Tokens;
 import com.bonfile.model.append.Append;
 import com.bonfile.util.filePath.FilePath;
@@ -82,60 +82,60 @@ public class AppendController {
 
             indentFile();
 
-            if(entry.getValue() instanceof Integer) {
+            if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("INTEGER"))) {
                 writeInteger(key, (Integer) entry.getValue());
-            } else if(entry.getValue() instanceof Float) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("FLOAT"))) {
                 writeFloat(key,(Float) entry.getValue());
-            } else if(entry.getValue() instanceof Double) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("DOUBLE"))) {
                 writeDouble(key,(Double) entry.getValue());
-            } else if(entry.getValue() instanceof Boolean) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("BOOLEAN"))) {
                 writeBoolean(key,(Boolean) entry.getValue());
-            } else if(entry.getValue() instanceof Character) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("CHAR"))) {
                 writeChar(key,(Character) entry.getValue());
-            } else if(entry.getValue() instanceof String) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("STRING"))) {
                 writeString(key,(String) entry.getValue());
-            } else if (entry.getValue() instanceof BonfileObject) {
+            } else if(entry.getValue() instanceof BonfileObject) {
                 writeObject((BonfileObject) entry.getValue());
             } else {
                 if(entry.getValue().getClass() == HashMap.class) {
                     writeDict(key, (HashMap<String, String>) entry.getValue());
-                } else if(entry.getValue() instanceof Integer[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("INTEGER"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         0
                     );
-                } else if(entry.getValue() instanceof Float[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("FLOAT"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         0
                     );
-                } else if(entry.getValue() instanceof Double[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("DOUBLE"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         0
                     );
-                } else if(entry.getValue() instanceof Boolean[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("BOOLEAN"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         1
                     );
-                } else if(entry.getValue() instanceof Character[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("CHAR"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         2
                     );
-                } else if(entry.getValue() instanceof String[]) {
+                } else if(FileHelper.isArrayOfPrimitive((Object[]) entry.getValue(), Tokens.TOKENS.get("STRING"))) {
                     writeList(
                         key,
                         new LinkedList<>(List.of(entry.getValue())),
                         3
                     );
-                } else if (entry.getValue() instanceof BonfileObject[]) {
+                } else if(entry.getValue() instanceof BonfileObject[]) {
                     BonfileObject[] array = (BonfileObject[]) entry.getValue();
 
                     for(BonfileObject obj : array) {
@@ -181,19 +181,19 @@ public class AppendController {
         openBracket(false);
         append.increaseIndentation();
 
-        if(linkedList.getFirst() instanceof Character) {
+        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 2, iterator.hasNext());
             }
-        } else if(linkedList.getFirst() instanceof String) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 3, iterator.hasNext());
             }
-        } else if(linkedList.getFirst() instanceof Boolean) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 1, iterator.hasNext());
             }
-        } else {
+        } else if(FileHelper.isNumericType(linkedList.getFirst())) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 0, iterator.hasNext());
             }
@@ -211,19 +211,19 @@ public class AppendController {
         openBracket(false);
         append.increaseIndentation();
 
-        if(linkedList.getFirst() instanceof Character) {
+        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 2, iterator.hasNext());
             }
-        } else if(linkedList.getFirst() instanceof String) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 3, iterator.hasNext());
             }
-        } else if(linkedList.getFirst() instanceof Boolean) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"))) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 1, iterator.hasNext());
             }
-        } else {
+        } else if(FileHelper.isNumericType(linkedList.getFirst())){
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 0, iterator.hasNext());
             }
@@ -419,17 +419,17 @@ public class AppendController {
     }
 
     public void writePrimitive(Object variable) throws IOException {
-        if(variable instanceof Integer) {
+        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"))) {
             writeInteger((Integer) variable);
-        } else if(variable instanceof Float) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"))) {
             writeFloat((Float) variable);
-        } else if(variable instanceof Double) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"))) {
             writeDouble((Double) variable);
-        } else if(variable instanceof Boolean) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"))) {
             writeBoolean((Boolean) variable);
-        } else if(variable instanceof Character) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"))) {
             writeChar((Character) variable);
-        } else if(variable instanceof String) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"))) {
             writeString((String) variable);
         }
 
@@ -437,17 +437,17 @@ public class AppendController {
     }
 
     public void writePrimitive(String varName, Object variable) throws IOException {
-        if(variable instanceof Integer) {
+        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"))) {
             writeInteger(varName, (Integer) variable);
-        } else if(variable instanceof Float) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"))) {
             writeFloat(varName, (Float) variable);
-        } else if(variable instanceof Double) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"))) {
             writeDouble(varName, (Double) variable);
-        } else if(variable instanceof Boolean) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"))) {
             writeBoolean(varName, (Boolean) variable);
-        } else if(variable instanceof Character) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"))) {
             writeChar(varName, (Character) variable);
-        } else if(variable instanceof String) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"))) {
             writeString(varName, (String) variable);
         }
 

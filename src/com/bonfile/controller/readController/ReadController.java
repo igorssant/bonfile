@@ -3,7 +3,7 @@ package com.bonfile.controller.readController;
 import com.bonfile.controller.bonfileObjectController.BonfileObjectController;
 import com.bonfile.model.bonfileObject.BonfileObject;
 import com.bonfile.model.read.Read;
-import com.bonfile.util.FileHelper;
+import com.bonfile.util.fileHelper.FileHelper;
 import com.bonfile.util.filePath.FilePath;
 import com.bonfile.util.tokens.Tokens;
 import java.io.FileNotFoundException;
@@ -99,11 +99,11 @@ public class ReadController {
                 /* GO TO THE readChar method */
             } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"))) {
                 /* GO TO THE readString method */
-            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
                 /* GO TO THE readBool method */
-            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
                 /* GO TO THE readInt method */
-            } else if(isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
                 /* GO TO THE readFloat method */
             } else {
                 /* GO TO THE readDouble method */
@@ -156,7 +156,7 @@ public class ReadController {
                 break;
             }
 
-            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
+            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
                 return Integer.parseInt(possibleValue);
             }
         }
@@ -199,7 +199,7 @@ public class ReadController {
                 break;
             }
 
-            if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
+            if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
                 return Float.parseFloat(possibleValue);
             }
         }
@@ -242,7 +242,7 @@ public class ReadController {
                 break;
             }
 
-            if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
+            if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
                 return Double.parseDouble(possibleValue);
             }
         }
@@ -285,7 +285,7 @@ public class ReadController {
                 break;
             }
 
-            if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
+            if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
                 return Boolean.parseBoolean(possibleValue);
             }
         }
@@ -329,24 +329,5 @@ public class ReadController {
 
     public String readString(String floatName) {
         return null;
-    }
-
-    private static Boolean isPrimitiveType(Object subject, String typeName) {
-        switch(typeName) {
-            case "int":
-                return subject instanceof Integer;
-
-            case "float":
-                return subject instanceof Float;
-
-            case "double":
-                return subject instanceof Double;
-
-            case "bool":
-                return subject instanceof Boolean;
-
-            default:
-                return false;
-        }
     }
 }

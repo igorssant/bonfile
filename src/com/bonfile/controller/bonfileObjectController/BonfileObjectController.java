@@ -1,7 +1,7 @@
 package com.bonfile.controller.bonfileObjectController;
 
 import com.bonfile.model.bonfileObject.BonfileObject;
-import com.bonfile.util.FileHelper;
+import com.bonfile.util.fileHelper.FileHelper;
 
 import java.util.HashMap;
 import java.util.LinkedList;

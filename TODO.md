@@ -19,6 +19,19 @@
 <article>
 <hr>
 
+## Another urgent update point
+- [ ] Implement a class for Tuples
+  * The datatype will have a minimum of one value
+  * And a maximum of six values
+  * The model used is available in this [link](https://medium.com/@mgm06bm/tuples-in-java-17-c911c9431ed9)
+<br>
+<br>
+<br>
+</article>
+
+<article>
+<hr>
+
 ## First point
 - [ ] Implement the *Read* Class
   * The skeleton is already done

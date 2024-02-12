@@ -1,6 +1,10 @@
 package com.bonfile.model.tuple;
 
-public class sextet<T1, T2, T3, T4, T5, T6> {
+import com.bonfile.model.tuple.prototype.Tuple;
+
+import java.util.LinkedList;
+
+public class sextet<T1, T2, T3, T4, T5, T6> extends Tuple {
     private T1 item1;
     private T2 item2;
     private T3 item3;
@@ -65,5 +69,17 @@ public class sextet<T1, T2, T3, T4, T5, T6> {
 
     public void setItem6(T6 item6) {
         this.item6 = item6;
+    }
+
+    @Override
+    public LinkedList<Object> getTuple() {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        linkedList.add(this.item1);
+        linkedList.add(this.item2);
+        linkedList.add(this.item3);
+        linkedList.add(this.item4);
+        linkedList.add(this.item5);
+        linkedList.add(this.item6);
+        return linkedList;
     }
 }

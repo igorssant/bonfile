@@ -1,6 +1,10 @@
 package com.bonfile.model.tuple;
 
-public class Quartet<T1, T2, T3, T4> {
+import com.bonfile.model.tuple.prototype.Tuple;
+
+import java.util.LinkedList;
+
+public class Quartet<T1, T2, T3, T4> extends Tuple {
     private T1 item1;
     private T2 item2;
     private T3 item3;
@@ -45,5 +49,15 @@ public class Quartet<T1, T2, T3, T4> {
 
     public void setItem4(T4 item4) {
         this.item4 = item4;
+    }
+
+    @Override
+    public LinkedList<Object> getTuple() {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        linkedList.add(this.item1);
+        linkedList.add(this.item2);
+        linkedList.add(this.item3);
+        linkedList.add(this.item4);
+        return linkedList;
     }
 }

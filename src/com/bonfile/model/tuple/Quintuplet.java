@@ -1,6 +1,10 @@
 package com.bonfile.model.tuple;
 
-public class Quintuplet<T1, T2, T3, T4, T5> {
+import com.bonfile.model.tuple.prototype.Tuple;
+
+import java.util.LinkedList;
+
+public class Quintuplet<T1, T2, T3, T4, T5> extends Tuple {
     private T1 item1;
     private T2 item2;
     private T3 item3;
@@ -55,5 +59,16 @@ public class Quintuplet<T1, T2, T3, T4, T5> {
 
     public void setItem5(T5 item5) {
         this.item5 = item5;
+    }
+
+    @Override
+    public LinkedList<Object> getTuple() {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        linkedList.add(this.item1);
+        linkedList.add(this.item2);
+        linkedList.add(this.item3);
+        linkedList.add(this.item4);
+        linkedList.add(this.item5);
+        return linkedList;
     }
 }

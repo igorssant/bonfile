@@ -315,8 +315,21 @@ public class ReadController {
         throw new RuntimeException("This variable does not exists.");
     }
 
-    public Character readChar() {
-        return null;
+    public Character readChar() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            } else if(currLine.length() > 3) {
+                continue;
+            }
+
+             return currLine.charAt(1);
+        }
+
+        throw new RuntimeException("The gathered data is not a Character type.");
     }
 
     public Character readChar(String charName) {

@@ -20,7 +20,7 @@
 <hr>
 
 ## Another urgent update point
-- [ ] Implement a class for Tuples
+- [X] Implement a class for Tuples
   * The datatype will have a minimum of one value
   * And a maximum of six values
   * The model used is available in this [link](https://medium.com/@mgm06bm/tuples-in-java-17-c911c9431ed9)

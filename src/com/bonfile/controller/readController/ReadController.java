@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class ReadController {
     private Read read;
@@ -60,10 +61,13 @@ public class ReadController {
         this.read.setCurrentLine(0);
     }
 
-    private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName) throws IOException {
+    private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName, String objectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
 
-        bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
+        if(objectName.isEmpty()) {
+            bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
+        }
+
         while(true) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine((int) this.file.getFilePointer());
@@ -91,7 +95,8 @@ public class ReadController {
                             currLine
                                 .indexOf(
                                     Tokens.TOKENS.get("LET_SIGN")
-                                )
+                                ),
+                            ""
                         )
                     );
                 }
@@ -123,7 +128,7 @@ public class ReadController {
                 Integer indexOfLetSign = lineContent.indexOf(Tokens.TOKENS.get("LET_SIGN"));
 
                 if(FileHelper.isObject(lineContent.substring(indexOfLetSign + 2, indexOfLetSign + 3))) {
-                    return getObjectFromFile(FileHelper.removeSpaces(lineContent), indexOfLetSign);
+                    return getObjectFromFile(FileHelper.removeSpaces(lineContent), indexOfLetSign, "");
                 }
             }
         }
@@ -132,7 +137,21 @@ public class ReadController {
     }
 
     public BonfileObject readObject(String objectName) throws IOException {
-        return null;
+        String lineContent = null;
+
+        while((lineContent = file.readLine()) != null) {
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(lineContent.contains(objectName)) {
+                Integer indexOfLetSign = lineContent.indexOf(Tokens.TOKENS.get("LET_SIGN"));
+
+                if(FileHelper.isObject(lineContent.substring(indexOfLetSign + 2, indexOfLetSign + 3))) {
+                    return getObjectFromFile(FileHelper.removeSpaces(lineContent), indexOfLetSign, objectName);
+                }
+            }
+        }
+
+        throw new IOException("Invalid name.\nCould not find any Object with given name.");
     }
 
     public HashMap<String, String> readDict() {
@@ -140,6 +159,14 @@ public class ReadController {
     }
 
     public HashMap<String, String> readDict(String dictName) {
+        return null;
+    }
+
+    public LinkedList<Object> readList(){
+        return null;
+    }
+
+    public LinkedList<Object> readList(String varName){
         return null;
     }
 

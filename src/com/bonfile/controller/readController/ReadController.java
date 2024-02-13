@@ -66,11 +66,14 @@ public class ReadController {
 
         if(objectName.isEmpty()) {
             bonfileObjectController.setObjectName(currLine.substring(0, indexOfObjectName));
+        } else {
+            bonfileObjectController.setObjectName(objectName);
         }
 
         while(true) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine((int) this.file.getFilePointer());
+            file.seek(this.file.getFilePointer() - 1);
 
             if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
                 break;
@@ -154,7 +157,17 @@ public class ReadController {
         throw new IOException("Invalid name.\nCould not find any Object with given name.");
     }
 
-    public HashMap<String, String> readDict() {
+    public HashMap<String, String> readDict() throws IOException {
+        String lineContent = "";
+
+        while((lineContent = file.readLine()) != null) {
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(lineContent.contains(Tokens.TOKENS.get("LET_SIGN") + Tokens.TOKENS.get("DICTIONARY"))) {
+                /* TODO */
+            }
+        }
+
         return null;
     }
 

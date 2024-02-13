@@ -95,18 +95,18 @@ public class ReadController {
                         )
                     );
                 }
-            } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))) {
-                /* GO TO THE readChar method */
-            } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"))) {
-                /* GO TO THE readString method */
+            } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
+                bonfileObjectController.put(varName, readChar(varName));
+            } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
+                bonfileObjectController.put(varName, readString(varName));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
-                /* GO TO THE readBool method */
+                bonfileObjectController.put(varName, readBoolean(varName));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
-                /* GO TO THE readInt method */
+                bonfileObjectController.put(varName, readInteger(varName));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
-                /* GO TO THE readFloat method */
+                bonfileObjectController.put(varName, readFloat(varName));
             } else {
-                /* GO TO THE readDouble method */
+                bonfileObjectController.put(varName, readDouble(varName));
             }
         }
 
@@ -322,7 +322,16 @@ public class ReadController {
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
-            } else if(currLine.length() > 3) {
+            } else if(currLine.length() > 4) {
+                /*
+                * EXPLANATION FOR ABOVE IF
+                * INSIDE THE BONFILE, A CHARACTER
+                * WOULD BE WRITTEN LIKE
+                * 'c';
+                * THAT MEANS THE LINE MUST HAVE
+                * 4 CHARACTER IN TOTAL IN
+                * ORDER TO BE A CHARACTER TYPE
+                */
                 continue;
             }
 

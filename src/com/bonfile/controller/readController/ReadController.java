@@ -332,15 +332,63 @@ public class ReadController {
         throw new RuntimeException("The gathered data is not a Character type.");
     }
 
-    public Character readChar(String charName) {
-        return null;
+    public Character readChar(String charName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(charName)) {
+                return currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("SINGLE_QUOTE_MARK")),
+                    currLine.lastIndexOf(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"))
+                ).charAt(1);
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 
-    public String readString() {
-        return null;
+    public String readString() throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
+                return currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + 1),
+                    currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))
+                );
+            }
+        }
+
+        throw new RuntimeException("The gathered data is not a String type.");
     }
 
-    public String readString(String floatName) {
-        return null;
+    public String readString(String stringName) throws IOException {
+        while(true) {
+            String currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine((int) this.file.getFilePointer());
+
+            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
+                break;
+            }
+
+            if(currLine.contains(stringName)) {
+                return currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + 1),
+                    currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))
+                );
+            }
+        }
+
+        throw new RuntimeException("This variable does not exists.");
     }
 }

@@ -9,7 +9,7 @@
 ## *Table of contents*
 
 - [Short Explanation](#short-explanation)
-- [Overview]()
+- [Overview](#overview)
 - [Classes]()
 - [Methods]()
 - [Usage]()
@@ -108,7 +108,32 @@ Every entry in a ***Dictionary*** is treated as a String and their structure is 
 
 `//` are sigle line commentaries.
 
-`/* */` are multiline commentaries.
+`/* */` are multiline commentaries. `/*` opens the commentary and `*/` closes it.
+<hr>
+</section>
+<br>
+<section>
+
+## Classes
+
+The classes are not completely implemented yet.
+<hr>
+</section>
+<br>
+<section>
+
+## Methods
+
+The methods are not completely implemented yet.
+<hr>
+</section>
+<br>
+<section>
+
+## Usage
+
+TODO
+<hr>
 </section>
 <br>
 <section>

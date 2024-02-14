@@ -6,7 +6,7 @@
 <article>
 <hr>
 
-## Urgent update point
+## First point
 - [X] Implement indentation for nested printing
   * Example: a class with an inner class
   * or a list of lists
@@ -19,7 +19,7 @@
 <article>
 <hr>
 
-## Another urgent update point
+## Second point
 - [X] Implement a class for Tuples
   * The datatype will have a minimum of one value
   * And a maximum of six values
@@ -32,7 +32,7 @@
 <article>
 <hr>
 
-## First point
+## Third point
 - [ ] Implement the *Read* Class
   * The skeleton is already done
   * The focus is on the *Controller* Class for it
@@ -46,15 +46,16 @@
 <article>
 <hr>
 
-## Second point
+## Fourth point
 - [ ] Create the *ReadWrite* Class
   * It's an implementation of the Append Class where the caret stays at the beginning of the opened file, instead of at the end
+  * It needs Read class to be finalized beforehand.
 </article>
 
 <article>
 <hr>
 
-## Third point
+## Fifth point
 - [ ] Integrate *File* Class with *BonfileObject* Class
 - [ ] Attach both Classes in *Write* & *Read* Classes
   * (*Append* & *ReadWrite* included)
@@ -66,7 +67,7 @@
 <article>
 <hr>
 
-## Fourth point
+## Sixth point
 - [ ] Optimize code
   * The *Append* Class shares same methods with *Read* and *Write* Classes
   * The *ReadWrite* Class is, as written before, just another implementation of the *Append* Class
@@ -78,7 +79,7 @@
 <article>
 <hr>
 
-## Fifth point
+## Seventh point
 - [ ] Create a major Class that read and write on the opened file
   <br>
   <br>
@@ -88,7 +89,7 @@
 <article>
 <hr>
 
-## Last point
+## Eighth point
 - [ ] Remove the main method of the *Bonfile* Class
 - [ ] Create another methods to converge everything
 - [ ] Export as a .jar file and test

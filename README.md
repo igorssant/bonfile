@@ -10,9 +10,9 @@
 
 - [Short Explanation](#short-explanation)
 - [Overview](#overview)
-- [Classes]()
-- [Methods]()
-- [Usage]()
+- [Classes](#classes)
+- [Methods](#methods)
+- [Usage](#usage)
 - [Technologies Used](#technologies)
 - [Dependencies](#dependencies)
 <hr>

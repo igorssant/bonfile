@@ -61,6 +61,53 @@ public class ReadController {
         this.read.rewind();
     }
 
+    private Boolean hasCommentary(String currLine) {
+        Boolean isInsideString = false;
+
+        if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))) {
+            isInsideString = (
+                currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")) < currLine.indexOf(Tokens.TOKENS.get("SINGLE_LINE_COMMENTARY"))
+                &&
+                currLine.indexOf(Tokens.TOKENS.get("SINGLE_LINE_COMMENTARY")) < currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")));
+        } else if(currLine.contains(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY"))) {
+            isInsideString = (
+                currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")) < currLine.indexOf(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY"))
+                &&
+                currLine.indexOf(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY")) < currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")));
+        } else if(currLine.contains(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY"))) {
+            isInsideString = (
+                currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")) < currLine.indexOf(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY"))
+                &&
+                currLine.indexOf(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY")) < currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")));
+        }
+
+        return !isInsideString;
+    }
+
+    private String removeSingleLineCommentary() throws IOException {
+        this.file.seek(this.read.getCurrentLine() - 1);
+        this.read.setCurrentLine(this.read.getCurrentLine() - 1);
+        String currLine = FileHelper.removeSpaces(this.file.readLine());
+        return currLine.substring(0, currLine.indexOf("SINGLE_LINE_COMMENTARY"));
+    }
+
+    private String removeMultiLineCommentary() throws IOException {
+        this.file.seek(this.read.getCurrentLine() - 1);
+        this.read.setCurrentLine(this.read.getCurrentLine() - 1);
+        String currLine = FileHelper.removeSpaces(this.file.readLine());
+
+        if(currLine.contains(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY"))) {
+            if(currLine.contains(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY"))) {
+                return currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY")))
+                    + currLine.substring(currLine.indexOf(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY")) + 2);
+            }
+
+            return currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("OPEN_MULTILINE_COMMENTARY")));
+        }
+
+        return currLine.substring(currLine.indexOf(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY")) + 2);
+    }
+
     private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName, String objectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
 

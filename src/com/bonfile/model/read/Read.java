@@ -37,7 +37,7 @@ public class Read extends File {
     }
 
     public void increaseIndentation() {
-        super.setIndentationCounter(1);
+        super.setIndentationCounter(super.getIndentationCounter() + 1);
     }
 
     public void decreaseIndentationCounter() {

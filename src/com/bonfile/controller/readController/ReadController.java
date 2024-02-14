@@ -108,6 +108,16 @@ public class ReadController {
         return currLine.substring(currLine.indexOf(Tokens.TOKENS.get("CLOSE_MULTILINE_COMMENTARY")) + 2);
     }
 
+    private String iterateThroughCommentary() throws IOException {
+        String currLine = FileHelper.removeSpaces(this.file.readLine());
+
+        while(!hasCommentary(currLine)) {
+            currLine= FileHelper.removeSpaces(this.file.readLine());
+        }
+
+        return removeMultiLineCommentary();
+    }
+
     private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName, String objectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
 

@@ -90,12 +90,25 @@ integerArray::int = [
     4
 ];
 
-internDepartments::dict = {
-    
+countries::dict = {
+    CANADA : AMERICA,
+    PORTUGAL : EUROPE,
+    SOUTH_AFRICA : AFRICA,
+    BRAZIL : AMERICA,
+    CHINA : ASIA
 };
 
-
+tupleExample::tuple = ("some string", 'Z', 11, false, -0.3);
 ```
+Every ***Array*** and ***List*** must be of a single declared data type and their structure is made of `[` and `]` surrounding its values which are separated by a comma and a new line.
+
+Every entry in a ***Dictionary*** is treated as a String and their structure is made of `{` and `}` surrounding its body. The keys are separated from the values by a `:` and each new line contains a pair key-value with a comma in the end of the line.
+
+***Tuples*** might store any kind of data type with no declaration and their structure is made of `(` and `)` surrounding its values which are separated by a comma and a space.
+
+`//` are sigle line commentaries.
+
+`/* */` are multiline commentaries.
 </section>
 <br>
 <section>

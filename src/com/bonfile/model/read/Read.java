@@ -3,15 +3,15 @@ package com.bonfile.model.read;
 import com.bonfile.model.file.File;
 
 public class Read extends File {
-    private Integer currentLine;
+    private Long currentLine;
 
     public Read() {
         super();
     }
 
-    public Read(String fileName, String filePath) {
-        super(fileName, filePath);
-        this.currentLine = 0;
+    public Read(String fileName, String filePath, Long fileLength) {
+        super(fileName, filePath, fileLength);
+        this.currentLine = 0L;
     }
 
     @Override
@@ -19,11 +19,11 @@ public class Read extends File {
         return super.getFileName();
     }
 
-    public Integer getCurrentLine() {
+    public Long getCurrentLine() {
         return currentLine;
     }
 
-    public void setCurrentLine(Integer currentLine) {
+    public void setCurrentLine(Long currentLine) {
         this.currentLine = currentLine;
     }
 
@@ -33,7 +33,7 @@ public class Read extends File {
     }
 
     public void rewind() {
-        setCurrentLine(0);
+        setCurrentLine(0L);
     }
 
     public void increaseIndentation() {
@@ -48,8 +48,17 @@ public class Read extends File {
         }
     }
 
+    public Boolean isEOF() {
+        return super.getFileLength().equals(this.currentLine);
+    }
+
     @Override
     public Integer getIndentationCounter() {
         return super.getIndentationCounter();
+    }
+
+    @Override
+    public Long getFileLength() {
+        return super.getFileLength();
     }
 }

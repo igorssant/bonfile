@@ -3,16 +3,18 @@ package com.bonfile.model.file;
 public class File {
     private String fileName;
     private String filePath;
+    private Long fileLength;
     private Integer indentationCounter;
 
     public File() {
         this.indentationCounter = 0;
     }
 
-    public File(String fileName, String filePath) {
+    public File(String fileName, String filePath, Long fileLength) {
         this.fileName = fileName;
         this.filePath = filePath;
         this.indentationCounter = 0;
+        this.fileLength = fileLength;
     }
 
     public String getFileName() {
@@ -37,5 +39,9 @@ public class File {
 
     public void setIndentationCounter(Integer indentationCounter) {
         this.indentationCounter = indentationCounter;
+    }
+
+    public Long getFileLength() {
+        return fileLength;
     }
 }

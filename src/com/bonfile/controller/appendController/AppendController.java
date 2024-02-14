@@ -19,7 +19,7 @@ public class AppendController {
     public AppendController(String filePath) throws IOException, FileNotFoundException {
         String fileName = filePath.substring(filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1);
         this.file = new RandomAccessFile(FilePath.getFilePath(fileName), "rw");
-        this.append = new Append(fileName, filePath.substring(0, filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1), (int) file.length());
+        this.append = new Append(fileName, filePath.substring(0, filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1), file.length());
         file.seek(file.length());
     }
 
@@ -564,7 +564,7 @@ public class AppendController {
     }
 
     private void updateCaretPosition() throws IOException {
-        this.append.setCurrentLine((int) this.file.length());
+        this.append.setCurrentLine(this.file.length());
     }
 
     public void rewind() throws IOException {

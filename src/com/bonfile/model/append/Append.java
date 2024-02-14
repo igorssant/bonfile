@@ -3,14 +3,14 @@ package com.bonfile.model.append;
 import com.bonfile.model.file.File;
 
 public class Append extends File {
-    private Integer currentLine;
+    private Long currentLine;
 
     public Append() {
         super();
     }
 
-    public Append(String fileName, String filePath, Integer currentLine) {
-        super(fileName, filePath);
+    public Append(String fileName, String filePath, Long currentLine) {
+        super(fileName, filePath, currentLine);
         this.currentLine = currentLine;
     }
 
@@ -19,11 +19,11 @@ public class Append extends File {
         return super.getFileName();
     }
 
-    public Integer getCurrentLine() {
+    public Long getCurrentLine() {
         return currentLine;
     }
 
-    public void setCurrentLine(Integer currentLine) {
+    public void setCurrentLine(Long currentLine) {
         this.currentLine = currentLine;
     }
 
@@ -33,7 +33,7 @@ public class Append extends File {
     }
 
     public void rewind() {
-        setCurrentLine(0);
+        setCurrentLine(0L);
     }
 
     public void increaseIndentation() {
@@ -51,5 +51,10 @@ public class Append extends File {
     @Override
     public Integer getIndentationCounter() {
         return super.getIndentationCounter();
+    }
+
+    @Override
+    public Long getFileLength() {
+        return super.getFileLength();
     }
 }

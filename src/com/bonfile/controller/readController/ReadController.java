@@ -129,7 +129,7 @@ public class ReadController {
 
         while(true) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
             file.seek(this.file.getFilePointer() - 1);
 
             if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
@@ -183,7 +183,7 @@ public class ReadController {
 
         while(!this.read.isEOF()) {
             lineContent = file.readLine();
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(lineContent.contains(Tokens.TOKENS.get("LET_SIGN"))) {
                 Integer indexOfLetSign = lineContent.indexOf(Tokens.TOKENS.get("LET_SIGN"));
@@ -201,8 +201,8 @@ public class ReadController {
         String lineContent = null;
 
         while(!this.read.isEOF()) {
-            lineContent = file.readLine();
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            lineContent = this.file.readLine();
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(lineContent.contains(objectName)) {
                 Integer indexOfLetSign = lineContent.indexOf(Tokens.TOKENS.get("LET_SIGN"));
@@ -221,7 +221,7 @@ public class ReadController {
 
         while(!this.read.isEOF()) {
             lineContent = file.readLine();
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(lineContent.contains(Tokens.TOKENS.get("LET_SIGN") + Tokens.TOKENS.get("DICTIONARY"))) {
                 /* TODO */
@@ -235,12 +235,57 @@ public class ReadController {
         return null;
     }
 
-    public LinkedList<Object> readList(){
-        return null;
+    private LinkedList<Object> readListMember() throws IOException {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(currLine.equals(Tokens.TOKENS.get("CLOSE_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            currLine = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA")));
+            linkedList.add(currLine);
+        }
+
+        return linkedList;
     }
 
-    public LinkedList<Object> readList(String varName){
-        return null;
+    public LinkedList<Object> readList() throws IOException {
+        String currLine = "";
+
+        while(true) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(this.read.isEOF()) {
+                break;
+            }
+
+            if(currLine.contains(Tokens.TOKENS.get("LET_SIGN"))
+            &&
+            currLine.contains(Tokens.TOKENS.get("EQUALS_SIGN") + Tokens.TOKENS.get("OPEN_BRACKET"))) {
+                return readListMember();
+            }
+        }
+
+        throw new RuntimeException("No List nor Array-like structure was found.");
+    }
+
+    public LinkedList<Object> readList(String varName) throws IOException {
+        String currLine = "";
+
+        while(true) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(this.read.isEOF()) {
+                break;
+            }
+
+            if(currLine.contains(varName)) {
+                return readListMember();
+            }
+        }
+
+        throw new RuntimeException("No List nor Array-like structure was found with given name.");
     }
 
     public Integer readInteger() throws IOException {
@@ -250,7 +295,7 @@ public class ReadController {
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -267,7 +312,7 @@ public class ReadController {
     public Integer readInteger(String intName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -293,7 +338,7 @@ public class ReadController {
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -310,7 +355,7 @@ public class ReadController {
     public Float readFloat(String floatName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -336,7 +381,7 @@ public class ReadController {
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -353,7 +398,7 @@ public class ReadController {
     public Double readDouble(String doubleName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -379,7 +424,7 @@ public class ReadController {
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -396,7 +441,7 @@ public class ReadController {
     public Boolean readBoolean(String booleanName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -418,7 +463,7 @@ public class ReadController {
     public Character readChar() throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -444,7 +489,7 @@ public class ReadController {
     public Character readChar(String charName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -464,7 +509,7 @@ public class ReadController {
     public String readString() throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;
@@ -484,7 +529,7 @@ public class ReadController {
     public String readString(String stringName) throws IOException {
         while(true) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
-            this.read.setCurrentLine((long) this.file.getFilePointer());
+            this.read.setCurrentLine(this.file.getFilePointer());
 
             if(this.read.getCurrentLine() == (this.file.length() - 1)) {
                 break;

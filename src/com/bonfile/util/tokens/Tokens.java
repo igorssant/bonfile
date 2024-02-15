@@ -40,6 +40,9 @@ public class Tokens {
         /* THE DICTONARY TYPE */
         TOKENS.put("DICTIONARY", "dict");
 
+        /* THE TUPLE ANNOTATION */
+        TOKENS.put("TUPLE", "tuple");
+
         /* QUOTATION MARK TOKENS */
         TOKENS.put("SINGLE_QUOTE_MARK", "\'");
         TOKENS.put("DOUBLE_QUOTE_MARK", "\"");

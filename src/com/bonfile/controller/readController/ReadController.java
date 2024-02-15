@@ -216,6 +216,27 @@ public class ReadController {
         throw new IOException("Invalid name.\nCould not find any Object with given name.");
     }
 
+    private HashMap<String, String> readDictLine() throws IOException {
+        HashMap<String, String> hashMap = new HashMap<>();
+        String currLine = "";
+
+        while(!currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            hashMap.put(
+                currLine.substring(
+                    0,
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                ),
+                currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("COMMA"))
+                )
+            );
+        }
+
+        return hashMap;
+    }
+
     public HashMap<String, String> readDict() throws IOException {
         String lineContent = "";
 
@@ -224,22 +245,33 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(lineContent.contains(Tokens.TOKENS.get("LET_SIGN") + Tokens.TOKENS.get("DICTIONARY"))) {
-                /* TODO */
+                return readDictLine();
             }
         }
 
-        return null;
+        throw new RuntimeException("No Dictionary-like structure was found.");
     }
 
-    public HashMap<String, String> readDict(String dictName) {
-        return null;
+    public HashMap<String, String> readDict(String dictName) throws IOException {
+        String lineContent = "";
+
+        while(!this.read.isEOF()) {
+            lineContent = file.readLine();
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(lineContent.contains(dictName)) {
+                return readDictLine();
+            }
+        }
+
+        throw new RuntimeException("No Dictionary was found with given name.");
     }
 
     private LinkedList<Object> readListMember() throws IOException {
         LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
-        while(currLine.equals(Tokens.TOKENS.get("CLOSE_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+        while(!currLine.equals(Tokens.TOKENS.get("CLOSE_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             currLine = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA")));
             linkedList.add(currLine);
@@ -251,13 +283,9 @@ public class ReadController {
     public LinkedList<Object> readList() throws IOException {
         String currLine = "";
 
-        while(true) {
+        while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.isEOF()) {
-                break;
-            }
 
             if(currLine.contains(Tokens.TOKENS.get("LET_SIGN"))
             &&
@@ -272,13 +300,9 @@ public class ReadController {
     public LinkedList<Object> readList(String varName) throws IOException {
         String currLine = "";
 
-        while(true) {
+        while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.isEOF()) {
-                break;
-            }
 
             if(currLine.contains(varName)) {
                 return readListMember();

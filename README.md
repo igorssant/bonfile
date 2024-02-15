@@ -72,7 +72,7 @@ doubleValue::double = -2.5425252524524564645363;
 true;
 
 // An Boolean value with a variable name
-booelanValue::bool = false;
+booleanValue::bool = false;
 ```
 ### Any other type must have a variable name linked to it
 #### *Objects might have any data type assigned to them*

@@ -9,7 +9,7 @@ public class FileHelper {
     }
 
     public static boolean isObject(String character) {
-        Pattern VOWELS_PATTERN = Pattern.compile("[AEIOU]", Pattern.CASE_INSENSITIVE);
+        Pattern VOWELS_PATTERN = Pattern.compile("[A-Z]", Pattern.CASE_INSENSITIVE);
         return VOWELS_PATTERN.matcher(character).matches();
     }
 

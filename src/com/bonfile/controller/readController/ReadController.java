@@ -118,6 +118,32 @@ public class ReadController {
         return removeMultiLineCommentary();
     }
 
+    private Short verifyListType(String line) {
+        Integer indexOfLetSign = line.indexOf(Tokens.TOKENS.get("LET_SIGN"));
+
+        if(line.contains(Tokens.TOKENS.get("INTEGER"))) {
+            return 0;
+        } else if (line.contains(Tokens.TOKENS.get("BOOLEAN"))) {
+            return 1;
+        } else if (line.contains(Tokens.TOKENS.get("FLOAT"))) {
+            return 2;
+        } else if(line.contains(Tokens.TOKENS.get("DOUBLE"))) {
+            return 3;
+        } else if(line.contains(Tokens.TOKENS.get("CHAR"))) {
+            return 4;
+        } else if(line.contains(Tokens.TOKENS.get("STRING"))) {
+            return 5;
+        } else if (line.contains(Tokens.TOKENS.get("DICTIONARY"))) {
+            return 6;
+        } else if(line.contains(Tokens.TOKENS.get("TUPLE"))) {
+            return 7;
+        } else if(FileHelper.isObject(line.substring(indexOfLetSign + 2, indexOfLetSign + 3))){
+            return 8;
+        }
+
+        throw new RuntimeException("This was caused by a commentary line or a blank line or EOF reached.");
+    }
+
     private BonfileObject getObjectFromFile(String currLine, Integer indexOfObjectName, String objectName) throws IOException {
         BonfileObjectController bonfileObjectController = new BonfileObjectController();
 
@@ -144,9 +170,49 @@ public class ReadController {
 
             if(currLine.contains(Tokens.TOKENS.get("LET_SIGN"))) {
                 if(currLine.contains(Tokens.TOKENS.get("DICTIONARY"))) {
-                    /* GO TO THE readDict method */
+                    bonfileObjectController.put(varName, readDict(varName));
                 } else if(currLine.contains(Tokens.TOKENS.get("OPEN_BRACKET"))) {
-                    /* GO TO THE readList method */
+                    LinkedList<Object> linkedList = readList(varName);
+
+                    switch(verifyListType(currLine)) {
+                        case 0:
+                            bonfileObjectController.put(varName, (Integer[]) linkedList.toArray());
+                            break;
+
+                        case 1:
+                            bonfileObjectController.put(varName, (Boolean[]) linkedList.toArray());
+                            break;
+
+                        case 2:
+                            bonfileObjectController.put(varName, (Float[]) linkedList.toArray());
+                            break;
+
+                        case 3:
+                            bonfileObjectController.put(varName, (Double[]) linkedList.toArray());
+                            break;
+
+                        case 4:
+                            bonfileObjectController.put(varName, (Character[]) linkedList.toArray());
+                            break;
+
+                        case 5:
+                            bonfileObjectController.put(varName, (String[]) linkedList.toArray());
+                            break;
+
+                        case 6:
+                            bonfileObjectController.put(varName, (HashMap<String, String>[]) linkedList.toArray());
+                            break;
+
+                        /*case 7:
+                            bonfileObjectController.put(varName, linkedList.toArray());
+                            break;*/
+                        case 8:
+                            bonfileObjectController.put(varName, (BonfileObject[]) linkedList.toArray());
+                            break;
+
+                        default:
+                            throw new RuntimeException("Unhandled type was parsed.");
+                    }
                 } else {
                     bonfileObjectController.put(
                         varName,
@@ -179,7 +245,7 @@ public class ReadController {
     }
 
     public BonfileObject readObject() throws IOException {
-        String lineContent = null;
+        String lineContent = "";
 
         while(!this.read.isEOF()) {
             lineContent = file.readLine();
@@ -198,7 +264,7 @@ public class ReadController {
     }
 
     public BonfileObject readObject(String objectName) throws IOException {
-        String lineContent = null;
+        String lineContent = "";
 
         while(!this.read.isEOF()) {
             lineContent = this.file.readLine();

@@ -4,7 +4,7 @@ import com.bonfile.model.tuple.prototype.Tuple;
 
 import java.util.LinkedList;
 
-public class sextet<T1, T2, T3, T4, T5, T6> extends Tuple {
+public class Sextet<T1, T2, T3, T4, T5, T6> extends Tuple {
     private T1 item1;
     private T2 item2;
     private T3 item3;
@@ -12,9 +12,9 @@ public class sextet<T1, T2, T3, T4, T5, T6> extends Tuple {
     private T5 item5;
     private T6 item6;
 
-    public sextet() {}
+    public Sextet() {}
 
-    public sextet(T1 item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6) {
+    public Sextet(T1 item1, T2 item2, T3 item3, T4 item4, T5 item5, T6 item6) {
         this.item1 = item1;
         this.item2 = item2;
         this.item3 = item3;

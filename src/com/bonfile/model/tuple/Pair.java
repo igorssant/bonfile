@@ -4,13 +4,13 @@ import com.bonfile.model.tuple.prototype.Tuple;
 
 import java.util.LinkedList;
 
-public class Pair<T1, T12> extends Tuple {
+public class Pair<T1, T2> extends Tuple {
     private T1 item1;
-    private T12 item2;
+    private T2 item2;
 
     public Pair() {}
 
-    public Pair(T1 item1, T12 item2) {
+    public Pair(T1 item1, T2 item2) {
         this.item1 = item1;
         this.item2 = item2;
     }
@@ -19,7 +19,7 @@ public class Pair<T1, T12> extends Tuple {
         return item1;
     }
 
-    public T12 getItem2() {
+    public T2 getItem2() {
         return item2;
     }
 
@@ -27,7 +27,7 @@ public class Pair<T1, T12> extends Tuple {
         this.item1 = item1;
     }
 
-    public void setItem2(T12 item2) {
+    public void setItem2(T2 item2) {
         this.item2 = item2;
     }
 

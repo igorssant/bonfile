@@ -127,7 +127,7 @@ public class ReadController {
             bonfileObjectController.setObjectName(objectName);
         }
 
-        while(true) {
+        while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
             file.seek(this.file.getFilePointer() - 1);
@@ -334,13 +334,9 @@ public class ReadController {
     }
 
     public Integer readInteger(String intName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(intName)) {
                 return Integer.parseInt(
@@ -356,17 +352,13 @@ public class ReadController {
     }
 
     public Float readFloat() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
                 possibleValue = currLine.substring(
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
                 return Float.parseFloat(possibleValue);
@@ -377,13 +369,9 @@ public class ReadController {
     }
 
     public Float readFloat(String floatName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(floatName)) {
                 return Float.parseFloat(
@@ -399,17 +387,13 @@ public class ReadController {
     }
 
     public Double readDouble() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
                 possibleValue = currLine.substring(
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
                 return Double.parseDouble(possibleValue);
@@ -420,13 +404,9 @@ public class ReadController {
     }
 
     public Double readDouble(String doubleName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(doubleName)) {
                 return Double.parseDouble(
@@ -442,17 +422,13 @@ public class ReadController {
     }
 
     public Boolean readBoolean() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
                 possibleValue = currLine.substring(
                     currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
                 return Boolean.parseBoolean(possibleValue);
@@ -463,13 +439,9 @@ public class ReadController {
     }
 
     public Boolean readBoolean(String booleanName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(booleanName)) {
                 return Boolean.parseBoolean(
@@ -485,13 +457,11 @@ public class ReadController {
     }
 
     public Character readChar() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
 
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            } else if(currLine.length() > 4) {
+            if(currLine.length() > 4) {
                 /*
                 * EXPLANATION FOR ABOVE IF
                 * INSIDE THE BONFILE, A CHARACTER
@@ -511,13 +481,9 @@ public class ReadController {
     }
 
     public Character readChar(String charName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(charName)) {
                 return currLine.substring(
@@ -531,13 +497,9 @@ public class ReadController {
     }
 
     public String readString() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
                 return currLine.substring(
@@ -551,13 +513,9 @@ public class ReadController {
     }
 
     public String readString(String stringName) throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
 
             if(currLine.contains(stringName)) {
                 return currLine.substring(

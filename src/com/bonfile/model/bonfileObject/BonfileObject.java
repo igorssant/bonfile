@@ -72,7 +72,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, Integer[] valueArray) {
+    public void put(String varName, LinkedList<Integer> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -80,7 +80,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, Float[] valueArray) {
+    public void put(String varName, LinkedList<Float> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -88,7 +88,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, Double[] valueArray) {
+    public void put(String varName, LinkedList<Double> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -96,7 +96,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, Boolean[] valueArray) {
+    public void put(String varName, LinkedList<Boolean> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -104,7 +104,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, Character[] valueArray) {
+    public void put(String varName, LinkedList<Character> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -112,7 +112,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, String[] valueArray) {
+    public void put(String varName, LinkedList<String> valueArray) {
         this.hashMap.put(varName, valueArray);
     }
 
@@ -120,16 +120,12 @@ public class BonfileObject {
         this.hashMap.put(varName, dict);
     }
 
-    public void put(String varName, HashMap<String, String>[] dictArray) {
+    public void put(String varName, LinkedList<HashMap<String, String>> dictArray) {
         this.hashMap.put(varName, dictArray);
     }
 
     public void put(String varName, BonfileObject bonfileObject) {
         this.hashMap.put(varName, bonfileObject);
-    }
-
-    public void put(String varName, BonfileObject[] bonfileObjectArray) {
-        this.hashMap.put(varName, bonfileObjectArray);
     }
 
     public void put(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
@@ -140,64 +136,60 @@ public class BonfileObject {
         return (Integer) this.hashMap.get(varName);
     }
 
-    public Integer[] getIntArray(String varName) {
-        return (Integer[]) this.hashMap.get(varName);
+    public LinkedList<Integer> getIntList(String varName) {
+        return (LinkedList<Integer>) this.hashMap.get(varName);
     }
 
     public Float getFloat(String varName) {
         return (Float) this.hashMap.get(varName);
     }
 
-    public Float[] getFloatArray(String varName) {
-        return (Float[]) this.hashMap.get(varName);
+    public LinkedList<Float> getFloatList(String varName) {
+        return (LinkedList<Float>) this.hashMap.get(varName);
     }
 
     public Double getDouble(String varName) {
         return (Double) this.hashMap.get(varName);
     }
 
-    public Double[] getDoubleArray(String varName) {
-        return (Double[]) this.hashMap.get(varName);
+    public LinkedList<Double> getDoubleList(String varName) {
+        return (LinkedList<Double>) this.hashMap.get(varName);
     }
 
     public Boolean getBoolean(String varName) {
         return (Boolean) this.hashMap.get(varName);
     }
 
-    public Boolean[] getBooleanArray(String varName) {
-        return (Boolean[]) this.hashMap.get(varName);
+    public LinkedList<Boolean> getBooleanList(String varName) {
+        return (LinkedList<Boolean>) this.hashMap.get(varName);
     }
 
     public Character getCharacter(String varName) {
         return (Character) this.hashMap.get(varName);
     }
 
-    public Character[] getCharacterArray(String varName) {
-        return (Character[]) this.hashMap.get(varName);
+    public LinkedList<Character> getCharacterList(String varName) {
+        return (LinkedList<Character>) this.hashMap.get(varName);
     }
 
     public String getString(String varName) {
         return (String) this.hashMap.get(varName);
     }
 
-    public String[] getStringArray(String varName) {
-        return (String[]) this.hashMap.get(varName);
+    public LinkedList<String> getStringList(String varName) {
+        return (LinkedList<String>) this.hashMap.get(varName);
     }
 
     public HashMap<String, String> getDict(String varName) {
         return (HashMap<String, String>) this.hashMap.get(varName);
     }
 
-    public HashMap<String, String>[] getDictArray(String varName) {
-        return (HashMap<String, String>[]) this.hashMap.get(varName);
+    public LinkedList<HashMap<String, String>> getDictList(String varName) {
+        return (LinkedList<HashMap<String, String>>) this.hashMap.get(varName);
     }
 
     public BonfileObject getObject(String varName) {
         return (BonfileObject) this.hashMap.get(varName);
-    }
-
-    public BonfileObject[] getClassArray(String varName) {
-        return (BonfileObject[]) this.hashMap.get(varName);
     }
 
     public LinkedList<BonfileObject> getClassList(String varName) {

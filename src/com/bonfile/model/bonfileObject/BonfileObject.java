@@ -72,48 +72,48 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Integer> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<Integer> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, Float value) {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Float> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<Float> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, Double value) {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Double> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<Double> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, Boolean value) {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Boolean> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<Boolean> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, Character value) {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Character> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<Character> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, String value) {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<String> valueArray) {
-        this.hashMap.put(varName, valueArray);
+    public void put(String varName, LinkedList<String> valueList) {
+        this.hashMap.put(varName, valueList);
     }
 
     public void put(String varName, HashMap<String, String> dict) {

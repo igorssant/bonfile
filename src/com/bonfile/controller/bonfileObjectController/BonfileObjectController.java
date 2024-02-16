@@ -2,7 +2,6 @@ package com.bonfile.controller.bonfileObjectController;
 
 import com.bonfile.model.bonfileObject.BonfileObject;
 import com.bonfile.util.fileHelper.FileHelper;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -69,64 +68,60 @@ public class BonfileObjectController {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, Integer[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<Integer> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, Float value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, Float[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<Float> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, Double value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, Double[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<Double> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, Boolean value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, Boolean[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<Boolean> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, Character value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, Character[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<Character> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, String value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, String[] valueArray) {
-        this.bonfileObject.put(varName, valueArray);
+    public void put(String varName, LinkedList<String> valueList) {
+        this.bonfileObject.put(varName, valueList);
     }
 
     public void put(String varName, HashMap<String, String> dict) {
         this.bonfileObject.put(varName, dict);
     }
 
-    public void put(String varName, HashMap<String, String>[] dictArray) {
+    public void put(String varName, LinkedList<HashMap<String, String>> dictArray) {
         this.bonfileObject.put(varName, dictArray);
     }
 
     public void put(String varName, BonfileObject bonfileObject) {
         this.bonfileObject.put(varName, bonfileObject);
-    }
-
-    public void put(String varName, BonfileObject[] bonfileObjectArray) {
-        this.bonfileObject.put(varName, bonfileObjectArray);
     }
 
     public void put(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
@@ -137,64 +132,64 @@ public class BonfileObjectController {
         return (Integer) this.bonfileObject.getInt(varName);
     }
 
-    public Integer[] getIntArray(String varName) {
-        return (Integer[]) this.bonfileObject.getIntArray(varName);
+    public LinkedList<Integer> getIntList(String varName) {
+        return (LinkedList<Integer>) this.bonfileObject.getIntList(varName);
     }
 
     public Float getFloat(String varName) {
         return (Float) this.bonfileObject.getFloat(varName);
     }
 
-    public Float[] getFloatArray(String varName) {
-        return (Float[]) this.bonfileObject.getFloatArray(varName);
+    public LinkedList<Float> getFloatList(String varName) {
+        return (LinkedList<Float>) this.bonfileObject.getFloatList(varName);
     }
 
     public Double getDouble(String varName) {
         return (Double) this.bonfileObject.getDouble(varName);
     }
 
-    public Double[] getDoubleArray(String varName) {
-        return (Double[]) this.bonfileObject.getDoubleArray(varName);
+    public LinkedList<Double> getDoubleList(String varName) {
+        return (LinkedList<Double>) this.bonfileObject.getDoubleList(varName);
     }
 
     public Boolean getBoolean(String varName) {
         return (Boolean) this.bonfileObject.getBoolean(varName);
     }
 
-    public Boolean[] getBooleanArray(String varName) {
-        return (Boolean[]) this.bonfileObject.getBooleanArray(varName);
+    public LinkedList<Boolean> getBooleanList(String varName) {
+        return (LinkedList<Boolean>) this.bonfileObject.getBooleanList(varName);
     }
 
     public Character getCharacter(String varName) {
         return (Character) this.bonfileObject.getCharacter(varName);
     }
 
-    public Character[] getCharacterArray(String varName) {
-        return (Character[]) this.bonfileObject.getCharacterArray(varName);
+    public LinkedList<Character> getCharacterList(String varName) {
+        return (LinkedList<Character>) this.bonfileObject.getCharacterList(varName);
     }
 
     public String getString(String varName) {
         return (String) this.bonfileObject.getString(varName);
     }
 
-    public String[] getStringArray(String varName) {
-        return (String[]) this.bonfileObject.getStringArray(varName);
+    public LinkedList<String> getStringList(String varName) {
+        return (LinkedList<String>) this.bonfileObject.getStringList(varName);
     }
 
     public HashMap<String, String> getDict(String varName) {
         return (HashMap<String, String>) this.bonfileObject.getDict(varName);
     }
 
-    public HashMap<String, String>[] getDictArray(String varName) {
-        return (HashMap<String, String>[]) this.bonfileObject.getDictArray(varName);
+    public LinkedList<HashMap<String, String>> getDictList(String varName) {
+        return (LinkedList<HashMap<String, String>>) this.bonfileObject.getDictList(varName);
     }
 
     public BonfileObject getObject(String varName) {
         return (BonfileObject) this.bonfileObject.getObject(varName);
     }
 
-    public BonfileObject[] getClassArray(String varName) {
-        return (BonfileObject[]) this.bonfileObject.getClassArray(varName);
+    public LinkedList<BonfileObject> getClassArray(String varName) {
+        return (LinkedList<BonfileObject>) this.bonfileObject.getClassList(varName);
     }
 
     public LinkedList<BonfileObject> getClassList(String varName) {

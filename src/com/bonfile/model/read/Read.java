@@ -42,7 +42,7 @@ public class Read extends File {
 
     public void decreaseIndentationCounter() {
         if(super.getIndentationCounter() > 0) {
-            super.setIndentationCounter(-1);
+            super.setIndentationCounter(super.getIndentationCounter() - 1);
         } else {
             throw new RuntimeException("Indentation counter cannot assume negative values.");
         }

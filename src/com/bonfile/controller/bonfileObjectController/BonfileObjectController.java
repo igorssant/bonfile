@@ -68,64 +68,64 @@ public class BonfileObjectController {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Integer> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putIntList(String varName, LinkedList<Integer> valueList) {
+        this.bonfileObject.putIntList(varName, valueList);
     }
 
     public void put(String varName, Float value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Float> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putFloatList(String varName, LinkedList<Float> valueList) {
+        this.bonfileObject.putFloatList(varName, valueList);
     }
 
     public void put(String varName, Double value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Double> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putDoubleList(String varName, LinkedList<Double> valueList) {
+        this.bonfileObject.putDoubleList(varName, valueList);
     }
 
     public void put(String varName, Boolean value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Boolean> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putBooleanList(String varName, LinkedList<Boolean> valueList) {
+        this.bonfileObject.putBooleanList(varName, valueList);
     }
 
     public void put(String varName, Character value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Character> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putCharList(String varName, LinkedList<Character> valueList) {
+        this.bonfileObject.putCharList(varName, valueList);
     }
 
     public void put(String varName, String value) {
         this.bonfileObject.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<String> valueList) {
-        this.bonfileObject.put(varName, valueList);
+    public void putStringList(String varName, LinkedList<String> valueList) {
+        this.bonfileObject.putStringList(varName, valueList);
     }
 
     public void put(String varName, HashMap<String, String> dict) {
         this.bonfileObject.put(varName, dict);
     }
 
-    public void put(String varName, LinkedList<HashMap<String, String>> dictArray) {
-        this.bonfileObject.put(varName, dictArray);
+    public void putDictList(String varName, LinkedList<HashMap<String, String>> dictArray) {
+        this.bonfileObject.putDictList(varName, dictArray);
     }
 
     public void put(String varName, BonfileObject bonfileObject) {
         this.bonfileObject.put(varName, bonfileObject);
     }
 
-    public void put(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
-        this.bonfileObject.put(varName, bonfileObjectLinkedList);
+    public void putBonfileObjectList(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
+        this.bonfileObject.putBonfileObjectList(varName, bonfileObjectLinkedList);
     }
 
     public Integer getInt(String varName) {

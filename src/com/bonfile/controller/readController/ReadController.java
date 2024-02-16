@@ -9,6 +9,7 @@ import com.bonfile.util.tokens.Tokens;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -176,38 +177,38 @@ public class ReadController {
 
                     switch(verifyListType(currLine)) {
                         case 0:
-                            bonfileObjectController.put(varName, (Integer[]) linkedList.toArray());
+                            bonfileObjectController.putIntList(varName, (LinkedList<Integer>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 1:
-                            bonfileObjectController.put(varName, (Boolean[]) linkedList.toArray());
+                            bonfileObjectController.putBooleanList(varName, (LinkedList<Boolean>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 2:
-                            bonfileObjectController.put(varName, (Float[]) linkedList.toArray());
+                            bonfileObjectController.putFloatList(varName, (LinkedList<Float>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 3:
-                            bonfileObjectController.put(varName, (Double[]) linkedList.toArray());
+                            bonfileObjectController.putDoubleList(varName, (LinkedList<Double>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 4:
-                            bonfileObjectController.put(varName, (Character[]) linkedList.toArray());
+                            bonfileObjectController.putCharList(varName, (LinkedList<Character>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 5:
-                            bonfileObjectController.put(varName, (String[]) linkedList.toArray());
+                            bonfileObjectController.putStringList(varName, (LinkedList<String>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         case 6:
-                            bonfileObjectController.put(varName, (HashMap<String, String>[]) linkedList.toArray());
+                            bonfileObjectController.putDictList(varName, (LinkedList<HashMap<String, String>>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         /*case 7:
                             bonfileObjectController.put(varName, linkedList.toArray());
                             break;*/
                         case 8:
-                            bonfileObjectController.put(varName, (BonfileObject[]) linkedList.toArray());
+                            bonfileObjectController.putBonfileObjectList(varName, (LinkedList<BonfileObject>) (LinkedList) Arrays.asList(linkedList));
                             break;
 
                         default:

@@ -72,7 +72,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Integer> valueList) {
+    public void putIntList(String varName, LinkedList<Integer> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -80,7 +80,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Float> valueList) {
+    public void putFloatList(String varName, LinkedList<Float> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -88,7 +88,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Double> valueList) {
+    public void putDoubleList(String varName, LinkedList<Double> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -96,7 +96,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Boolean> valueList) {
+    public void putBooleanList(String varName, LinkedList<Boolean> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -104,7 +104,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<Character> valueList) {
+    public void putCharList(String varName, LinkedList<Character> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -112,7 +112,7 @@ public class BonfileObject {
         this.hashMap.put(varName, value);
     }
 
-    public void put(String varName, LinkedList<String> valueList) {
+    public void putStringList(String varName, LinkedList<String> valueList) {
         this.hashMap.put(varName, valueList);
     }
 
@@ -120,7 +120,7 @@ public class BonfileObject {
         this.hashMap.put(varName, dict);
     }
 
-    public void put(String varName, LinkedList<HashMap<String, String>> dictArray) {
+    public void putDictList(String varName, LinkedList<HashMap<String, String>> dictArray) {
         this.hashMap.put(varName, dictArray);
     }
 
@@ -128,7 +128,7 @@ public class BonfileObject {
         this.hashMap.put(varName, bonfileObject);
     }
 
-    public void put(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
+    public void putBonfileObjectList(String varName, LinkedList<BonfileObject> bonfileObjectLinkedList) {
         this.hashMap.put(varName, bonfileObjectLinkedList);
     }
 

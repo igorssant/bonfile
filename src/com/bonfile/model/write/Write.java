@@ -9,8 +9,8 @@ public class Write extends File {
         super();
     }
 
-    public Write(String fileName, String filePath) {
-        super(fileName, filePath);
+    public Write(String fileName, String filePath, Long fileLength) {
+        super(fileName, filePath, fileLength);
         this.currentLine = 0;
     }
 
@@ -37,12 +37,12 @@ public class Write extends File {
     }
 
     public void increaseIndentation() {
-        super.setIndentationCounter(1);
+        super.setIndentationCounter(super.getIndentationCounter() + 1);
     }
 
     public void decreaseIndentationCounter() {
         if(super.getIndentationCounter() > 0) {
-            super.setIndentationCounter(-1);
+            super.setIndentationCounter(super.getIndentationCounter() - 1);
         } else {
             throw new RuntimeException("Indentation counter cannot assume negative values.");
         }

@@ -1,5 +1,6 @@
 package com.bonfile.controller.appendController;
 
+import com.bonfile.controller.tupleController.*;
 import com.bonfile.model.bonfileObject.BonfileObject;
 import com.bonfile.util.fileHelper.FileHelper;
 import com.bonfile.util.tokens.Tokens;
@@ -573,5 +574,48 @@ public class AppendController {
 
     public void close() throws IOException {
         file.close();
+    }
+
+    public void writeTuple(Object item1, Optional<Object> item2, Optional<Object> item3, Optional<Object> item4, Optional<Object> item5, Optional<Object> item6) {
+        if(item2.isEmpty()) {
+            UnitController<String> unitController = new UnitController<>((String) item1);
+        } else {
+            if (item6.isPresent()) {
+                SextetController<String, String, String, String, String, String> sextetController = new SextetController<>(
+                    (String) item1,
+                    (String) item2.get(),
+                    (String) item3.get(),
+                    (String) item4.get(),
+                    (String) item5.get(),
+                    (String) item6.get()
+                );
+            } else if(item5.isPresent()) {
+                QuintupletController<String, String, String, String, String> quintupletController = new QuintupletController<>(
+                    (String) item1,
+                    (String) item2.get(),
+                    (String) item3.get(),
+                    (String) item4.get(),
+                    (String) item5.get()
+                );
+            } else if(item4.isPresent()) {
+                QuartetController<String, String, String, String> quartetController = new QuartetController<>(
+                    (String) item1,
+                    (String) item2.get(),
+                    (String) item3.get(),
+                    (String) item4.get()
+                );
+            } else if (item3.isPresent()) {
+                TripletController<String, String, String> tripletController = new TripletController<>(
+                    (String) item1,
+                    (String) item2.get(),
+                    (String) item3.get()
+                );
+            } else {
+                PairController<String, String> pairController = new PairController<>(
+                    (String) item1,
+                    (String) item2.get()
+                );
+            }
+        }
     }
 }

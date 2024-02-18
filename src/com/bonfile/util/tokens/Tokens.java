@@ -16,6 +16,10 @@ public class Tokens {
         TOKENS.put("INDENTATION", "\t");
         TOKENS.put("NEW_LINE", "\n");
 
+        /* TUPLE TOKENS */
+        TOKENS.put("OPEN_PARENTHESIS", "(");
+        TOKENS.put("CLOSE_PARENTHESIS", ")");
+
         /* LIST TOKENS */
         TOKENS.put("OPEN_BRACKET", "[");
         TOKENS.put("CLOSE_BRACKET", "]");

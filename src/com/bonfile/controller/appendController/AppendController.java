@@ -40,6 +40,18 @@ public class AppendController {
         this.file = file;
     }
 
+    private void openParenthesis() throws IOException {
+        this.file.writeBytes(Tokens.TOKENS.get("OPEN_PARENTHESIS"));
+    }
+
+    private void closeParenthesis() throws IOException {
+        this.file.writeBytes(
+            Tokens.TOKENS.get("CLOSE_PARENTHESIS")
+            + Tokens.TOKENS.get("SEMICOLON")
+            + Tokens.TOKENS.get("NEW_LINE")
+        );
+    }
+
     private void openBracket(Boolean isCurly) throws IOException {
         if(isCurly) {
             this.file.writeBytes(Tokens.TOKENS.get("OPEN_CURLY_BRACKET"));
@@ -395,6 +407,10 @@ public class AppendController {
                 file.writeBytes(Tokens.TOKENS.get("DICTIONARY"));
                 break;
 
+            case 7:
+                file.writeBytes(Tokens.TOKENS.get("TUPLE"));
+                break;
+
             default:
                 System.err.println("WRONG ARGUMENT ***objectType***\nPlease note that the types range from 0 to 6.\n");
                 System.exit(-1);
@@ -576,44 +592,55 @@ public class AppendController {
         file.close();
     }
 
-    public void writeTuple(Object item1, Optional<Object> item2, Optional<Object> item3, Optional<Object> item4, Optional<Object> item5, Optional<Object> item6) {
+    private void writeTupleElement(UnitController<String> unitController) {
+
+    }
+    private void writeTupleElement(PairController<String, String> pairController) {}
+    private void writeTupleElement(TripletController<String, String, String> tripletController) {}
+    private void writeTupleElement(QuartetController<String, String, String, String> quartetController) {}
+    private void writeTupleElement(QuintupletController<String, String, String, String, String> quintupletController) {}
+    private void writeTupleElement(SextetController<String, String, String, String, String, String> sextetController) {}
+
+    public void writeTuple(String varName, Object item1, Optional<Object> item2, Optional<Object> item3, Optional<Object> item4, Optional<Object> item5, Optional<Object> item6) throws IOException {
+        writeVariable(varName, 7);
+
         if(item2.isEmpty()) {
             UnitController<String> unitController = new UnitController<>((String) item1);
         } else {
             if (item6.isPresent()) {
                 SextetController<String, String, String, String, String, String> sextetController = new SextetController<>(
-                    (String) item1,
-                    (String) item2.get(),
-                    (String) item3.get(),
-                    (String) item4.get(),
-                    (String) item5.get(),
-                    (String) item6.get()
+                        (String) item1,
+                        (String) item2.get(),
+                        (String) item3.get(),
+                        (String) item4.get(),
+                        (String) item5.get(),
+                        (String) item6.get()
                 );
             } else if(item5.isPresent()) {
                 QuintupletController<String, String, String, String, String> quintupletController = new QuintupletController<>(
-                    (String) item1,
-                    (String) item2.get(),
-                    (String) item3.get(),
-                    (String) item4.get(),
-                    (String) item5.get()
+                        (String) item1,
+                        (String) item2.get(),
+                        (String) item3.get(),
+                        (String) item4.get(),
+                        (String) item5.get()
                 );
             } else if(item4.isPresent()) {
                 QuartetController<String, String, String, String> quartetController = new QuartetController<>(
-                    (String) item1,
-                    (String) item2.get(),
-                    (String) item3.get(),
-                    (String) item4.get()
+                        (String) item1,
+                        (String) item2.get(),
+                        (String) item3.get(),
+                        (String) item4.get()
                 );
             } else if (item3.isPresent()) {
                 TripletController<String, String, String> tripletController = new TripletController<>(
-                    (String) item1,
-                    (String) item2.get(),
-                    (String) item3.get()
+                        (String) item1,
+                        (String) item2.get(),
+                        (String) item3.get()
                 );
             } else {
                 PairController<String, String> pairController = new PairController<>(
-                    (String) item1,
-                    (String) item2.get()
+                        (String) item1,
+                        (String) item2.get()
                 );
             }
         }

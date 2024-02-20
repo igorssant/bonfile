@@ -49,7 +49,6 @@ public class Bonfile {
 
             appendController.writeObject(bonfileObjectController.getBonfileObject());
 
-            /* TODO create a method to transform a Tuple<?> to Tuple<Object> */
             UnitController<Object> unitController= new UnitController<>("Hello!!!");
             PairController<Object, Object> pairController= new PairController<>("value", 2);
             TripletController<Object, Object, Object> tripletController = new TripletController<>('A', true, 32.1d);

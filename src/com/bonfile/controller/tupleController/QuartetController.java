@@ -61,4 +61,12 @@ public class QuartetController<T1, T2, T3, T4> {
     public LinkedList<Object> getTuple() {
         return this.quartet.getTuple();
     }
+
+    public void elementsToObject() {
+        this.quartet = new Quartet<>(this.quartet.getItem1(), this.quartet.getItem2(), this.quartet.getItem3(), this.quartet.getItem4());
+    }
+
+    public Quartet<Object, Object, Object, Object> getElementsAsObject() {
+        return new Quartet<>(this.quartet.getItem1(), this.quartet.getItem2(), this.quartet.getItem3(), this.quartet.getItem4());
+    }
 }

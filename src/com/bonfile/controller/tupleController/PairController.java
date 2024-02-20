@@ -45,4 +45,11 @@ public class PairController<T1, T2> {
     public LinkedList<Object> getTuple() {
         return this.pair.getTuple();
     }
+
+    public void elementsToObject() {
+        this.pair = new Pair<>(this.pair.getItem1(), this.pair.getItem2());
+    }
+    public Pair<Object, Object> getElementsAsObject() {
+        return new Pair<>(this.pair.getItem1(), this.pair.getItem2());
+    }
 }

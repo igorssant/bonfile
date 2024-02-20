@@ -69,4 +69,20 @@ public class QuintupletController<T1, T2, T3, T4, T5> {
     public LinkedList<Object> getTuple() {
        return this.quintuplet.getTuple();
     }
+
+    public void elementsToObject() {
+        this.quintuplet = new Quintuplet<>(
+            this.quintuplet.getItem1(), this.quintuplet.getItem2(),
+            this.quintuplet.getItem3(), this.quintuplet.getItem4(),
+            this.quintuplet.getItem5()
+        );
+    }
+
+    public Quintuplet<Object, Object, Object, Object, Object> getElementsAsObject() {
+        return new Quintuplet<>(
+            this.quintuplet.getItem1(), this.quintuplet.getItem2(),
+            this.quintuplet.getItem3(), this.quintuplet.getItem4(),
+            this.quintuplet.getItem5()
+        );
+    }
 }

@@ -77,4 +77,20 @@ public class SextetController<T1, T2, T3, T4, T5, T6> {
     public LinkedList<Object> getTuple() {
         return this.sextet.getTuple();
     }
+
+    public void elementsToObject() {
+        this.sextet = new Sextet<>(
+            this.sextet.getItem1(), this.sextet.getItem2(),
+            this.sextet.getItem3(), this.sextet.getItem4(),
+            this.sextet.getItem5(), this.sextet.getItem6()
+        );
+    }
+
+    public Sextet<Object, Object, Object, Object, Object, Object> getElementsAsObject() {
+        return new Sextet<>(
+            this.sextet.getItem1(), this.sextet.getItem2(),
+            this.sextet.getItem3(), this.sextet.getItem4(),
+            this.sextet.getItem5(), this.sextet.getItem6()
+        );
+    }
 }

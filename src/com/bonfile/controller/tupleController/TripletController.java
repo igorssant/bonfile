@@ -53,4 +53,12 @@ public class TripletController<T1, T2, T3> {
     public LinkedList<Object> getTuple() {
         return this.triplet.getTuple();
     }
+
+    public void elementsToObject() {
+        this.triplet = new Triplet<>(this.triplet.getItem1(), this.triplet.getItem2(), this.triplet.getItem3());
+    }
+
+    public Triplet<Object, Object, Object> getElementsAsObject() {
+        return new Triplet<>(this.triplet.getItem1(), this.triplet.getItem2(), this.triplet.getItem3());
+    }
 }

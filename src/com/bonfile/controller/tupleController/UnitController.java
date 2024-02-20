@@ -36,4 +36,12 @@ public class UnitController<T> {
     public LinkedList<T> getTuple() {
         return this.unit.getTuple();
     }
+
+    public void elementsToObject() {
+        this.unit = new Unit<>(this.unit.getItem());
+    }
+
+    public Unit<Object> getElementsAsObject() {
+        return new Unit<>(this.unit.getItem());
+    }
 }

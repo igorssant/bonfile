@@ -1,5 +1,7 @@
 package com.bonfile.util.fileHelper;
 
+import com.bonfile.util.tokens.Tokens;
+
 import java.util.regex.Pattern;
 
 public class FileHelper {
@@ -15,6 +17,18 @@ public class FileHelper {
 
     public static String removeSpaces(String str) {
         return str.replaceAll("\\s+","");
+    }
+
+    public static Object addSingleQuoteMark(Object value) {
+        return Tokens.TOKENS.get("SINGLE_QUOTE_MARK")
+            + value
+            + Tokens.TOKENS.get("SINGLE_QUOTE_MARK");
+    }
+
+    public static Object addDoubleQuoteMark(Object value) {
+        return Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")
+            + value
+            + Tokens.TOKENS.get("DOUBLE_QUOTE_MARK");
     }
 
     public static Boolean isNumericType(Object obj) {

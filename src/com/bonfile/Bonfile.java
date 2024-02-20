@@ -2,6 +2,7 @@ package com.bonfile;
 
 import com.bonfile.controller.appendController.AppendController;
 import com.bonfile.controller.bonfileObjectController.BonfileObjectController;
+import com.bonfile.controller.tupleController.*;
 import com.bonfile.util.tokens.Tokens;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -47,6 +48,21 @@ public class Bonfile {
             bonfileObjectController.put("country", "brazil");
 
             appendController.writeObject(bonfileObjectController.getBonfileObject());
+
+            /* TODO create a method to transform a Tuple<?> to Tuple<Object> */
+            UnitController<Object> unitController= new UnitController<>("Hello!!!");
+            PairController<Object, Object> pairController= new PairController<>("value", 2);
+            TripletController<Object, Object, Object> tripletController = new TripletController<>('A', true, 32.1d);
+            QuartetController<Object, Object, Object, Object> quartetController = new QuartetController<>(0, 1, 2, 3);
+            QuintupletController<Object, Object, Object, Object, Object> quintupletController = new QuintupletController<>(5, 6, 7, 8.8d, 0.3f);
+            SextetController<Object, Object, Object, Object, Object, Object> sextetController = new SextetController<>("phrase", 'C', -100, 45.6d, 0.4f, true);
+
+            appendController.writeTuple("unit", unitController);
+            appendController.writeTuple("pair", pairController);
+            appendController.writeTuple("triplet", tripletController);
+            appendController.writeTuple("quartet", quartetController);
+            appendController.writeTuple("quintuplet", quintupletController);
+            appendController.writeTuple("sextet", sextetController);
 
             appendController.close();
         } catch(Exception e) {

@@ -592,124 +592,134 @@ public class AppendController {
         file.close();
     }
 
-    private void writeTupleElement(UnitController<String> unitController) throws IOException {
-        for(String element : unitController.getTuple()) {
-            this.file.writeBytes(element);
+    private void writeTupleElement(UnitController<Object> unitController) throws IOException {
+        for(Object element : unitController.getTuple()) {
+            this.file.writeBytes(element.toString());
         }
 
         updateCaretPosition();
     }
-    private void writeTupleElement(PairController<String, String> pairController) throws IOException {
-        String lastElement = pairController.getItem2();
+    private void writeTupleElement(Object[] array) throws IOException {
+        Object lastElement = array[array.length - 1];
+        System.out.println(array.length);
 
-        for(Object element : pairController.getTuple()) {
+        for(Object element : array) {
             this.file.writeBytes(element.toString());
 
             if(!element.equals(lastElement)) {
-                this.file.writeBytes(Tokens.TOKENS.get("COMMA"));
-            }
-        }
-
-        updateCaretPosition();
-    }
-    private void writeTupleElement(TripletController<String, String, String> tripletController) throws IOException {
-        String lastElement = tripletController.getItem3();
-
-        for(Object element : tripletController.getTuple()) {
-            this.file.writeBytes(element.toString());
-
-            if(!element.equals(lastElement)) {
-                this.file.writeBytes(Tokens.TOKENS.get("COMMA"));
-            }
-        }
-
-        updateCaretPosition();
-    }
-    private void writeTupleElement(QuartetController<String, String, String, String> quartetController) throws IOException {
-        String lastElement = quartetController.getItem4();
-
-        for(Object element : quartetController.getTuple()) {
-            this.file.writeBytes(element.toString());
-
-            if(!element.equals(lastElement)) {
-                this.file.writeBytes(Tokens.TOKENS.get("COMMA"));
-            }
-        }
-
-        updateCaretPosition();
-    }
-    private void writeTupleElement(QuintupletController<String, String, String, String, String> quintupletController) throws IOException {
-        String lastElement = quintupletController.getItem5();
-
-        for(Object element : quintupletController.getTuple()) {
-            this.file.writeBytes(element.toString());
-
-            if(!element.equals(lastElement)) {
-                this.file.writeBytes(Tokens.TOKENS.get("COMMA"));
-            }
-        }
-
-        updateCaretPosition();
-    }
-    private void writeTupleElement(SextetController<String, String, String, String, String, String> sextetController) throws IOException {
-        String lastElement = sextetController.getItem6();
-
-        for (Object element : sextetController.getTuple()) {
-            this.file.writeBytes(element.toString());
-
-            if(!element.equals(lastElement)) {
-                this.file.writeBytes(Tokens.TOKENS.get("COMMA"));
+                this.file.writeBytes(Tokens.TOKENS.get("COMMA") + Tokens.TOKENS.get("SPACE"));
             }
         }
 
         updateCaretPosition();
     }
 
-    public void writeTuple(String varName, Object item1, Optional<Object> item2, Optional<Object> item3, Optional<Object> item4, Optional<Object> item5, Optional<Object> item6) throws IOException {
+    public void writeTuple(String varName, UnitController<Object> unitController) throws IOException {
         writeVariable(varName, 7);
-        updateCaretPosition();
+        openParenthesis();
 
-        if(item2.isEmpty()) {
-            UnitController<String> unitController = new UnitController<>((String) item1);
-        } else {
-            if (item6.isPresent()) {
-                SextetController<String, String, String, String, String, String> sextetController = new SextetController<>(
-                        (String) item1,
-                        (String) item2.get(),
-                        (String) item3.get(),
-                        (String) item4.get(),
-                        (String) item5.get(),
-                        (String) item6.get()
-                );
-            } else if(item5.isPresent()) {
-                QuintupletController<String, String, String, String, String> quintupletController = new QuintupletController<>(
-                        (String) item1,
-                        (String) item2.get(),
-                        (String) item3.get(),
-                        (String) item4.get(),
-                        (String) item5.get()
-                );
-            } else if(item4.isPresent()) {
-                QuartetController<String, String, String, String> quartetController = new QuartetController<>(
-                        (String) item1,
-                        (String) item2.get(),
-                        (String) item3.get(),
-                        (String) item4.get()
-                );
-            } else if (item3.isPresent()) {
-                TripletController<String, String, String> tripletController = new TripletController<>(
-                        (String) item1,
-                        (String) item2.get(),
-                        (String) item3.get()
-                );
-            } else {
-                PairController<String, String> pairController = new PairController<>(
-                        (String) item1,
-                        (String) item2.get()
-                );
+        if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("CHAR"))) {
+            unitController.setItem(FileHelper.addSingleQuoteMark(unitController.getItem()));
+        } else if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("STRING"))) {
+            unitController.setItem(FileHelper.addDoubleQuoteMark(unitController.getItem()));
+        }
+
+        writeTupleElement(unitController);
+        closeParenthesis();
+        updateCaretPosition();
+    }
+
+    public void writeTuple(String varName, PairController<Object, Object> pairController) throws IOException {
+        Object[] listAsArray = pairController.getTuple().toArray();
+
+        writeVariable(varName, 7);
+        openParenthesis();
+
+        for(int i = 0; i < listAsArray.length; i++) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+                listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+                listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }
 
+        writeTupleElement(listAsArray);
+        closeParenthesis();
+        updateCaretPosition();
+    }
+
+    public void writeTuple(String varName, TripletController<Object, Object, Object> tripletController) throws IOException {
+        Object[] listAsArray = tripletController.getTuple().toArray();
+
+        writeVariable(varName, 7);
+        openParenthesis();
+
+        for(int i = 0; i < listAsArray.length; i++) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+                listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+                listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
+            }
+        }
+
+        writeTupleElement(listAsArray);
+        closeParenthesis();
+        updateCaretPosition();
+    }
+
+    public void writeTuple(String varName, QuartetController<Object, Object, Object, Object> quartetController) throws IOException {
+        Object[] listAsArray = quartetController.getTuple().toArray();
+
+        writeVariable(varName, 7);
+        openParenthesis();
+
+        for(int i = 0; i < listAsArray.length; i++) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+                listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+                listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
+            }
+        }
+
+        writeTupleElement(listAsArray);
+        closeParenthesis();
+        updateCaretPosition();
+    }
+
+    public void writeTuple(String varName, QuintupletController<Object, Object, Object, Object, Object> quintupletController) throws IOException {
+        Object[] listAsArray = quintupletController.getTuple().toArray();
+
+        writeVariable(varName, 7);
+        openParenthesis();
+
+        for(int i = 0; i < listAsArray.length; i++) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+                listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+                listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
+            }
+        }
+
+        writeTupleElement(listAsArray);
+        closeParenthesis();
+        updateCaretPosition();
+    }
+
+    public void writeTuple(String varName, SextetController<Object, Object, Object, Object, Object, Object> sextetController) throws IOException {
+        Object[] listAsArray = sextetController.getTuple().toArray();
+
+        writeVariable(varName, 7);
+        openParenthesis();
+
+        for(int i = 0; i < listAsArray.length; i++) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+                listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+                listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
+            }
+        }
+
+        writeTupleElement(listAsArray);
         closeParenthesis();
         updateCaretPosition();
     }

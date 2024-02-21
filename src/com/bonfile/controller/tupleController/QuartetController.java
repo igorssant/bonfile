@@ -1,6 +1,7 @@
 package com.bonfile.controller.tupleController;
 
 import com.bonfile.model.tuple.Quartet;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class QuartetController<T1, T2, T3, T4> {
@@ -12,6 +13,14 @@ public class QuartetController<T1, T2, T3, T4> {
 
     public QuartetController(T1 item1, T2 item2, T3 item3, T4 item4) {
         this.quartet = new Quartet<>(item1, item2, item3, item4);
+    }
+
+    public QuartetController(ArrayList<Object> arrayList) {
+        this.quartet = new Quartet<>();
+        this.quartet.setItem1((T1) arrayList.get(0));
+        this.quartet.setItem2((T2) arrayList.get(1));
+        this.quartet.setItem3((T3) arrayList.get(2));
+        this.quartet.setItem4((T4) arrayList.get(3));
     }
 
     public QuartetController(Quartet<T1, T2, T3, T4> quartet) {

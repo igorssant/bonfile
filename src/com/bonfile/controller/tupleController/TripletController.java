@@ -1,6 +1,7 @@
 package com.bonfile.controller.tupleController;
 
 import com.bonfile.model.tuple.Triplet;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class TripletController<T1, T2, T3> {
@@ -12,6 +13,13 @@ public class TripletController<T1, T2, T3> {
 
     public TripletController(T1 item1, T2 item2, T3 item3) {
         this.triplet = new Triplet<>(item1, item2, item3);
+    }
+
+    public TripletController(ArrayList<Object> arrayList) {
+        this.triplet = new Triplet<>();
+        this.triplet.setItem1((T1) arrayList.get(0));
+        this.triplet.setItem2((T2) arrayList.get(1));
+        this.triplet.setItem3((T3) arrayList.get(2));
     }
 
     public TripletController(Triplet<T1, T2, T3> triplet) {

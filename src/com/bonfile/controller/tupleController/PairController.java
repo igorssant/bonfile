@@ -1,6 +1,7 @@
 package com.bonfile.controller.tupleController;
 
 import com.bonfile.model.tuple.Pair;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class PairController<T1, T2> {
@@ -12,6 +13,12 @@ public class PairController<T1, T2> {
 
     public PairController(T1 item1, T2 item2){
         this.pair = new Pair<>(item1, item2);
+    }
+
+    public PairController(ArrayList<Object> arrayList) {
+        this.pair = new Pair<>();
+        this.pair.setItem1((T1) arrayList.get(0));
+        this.pair.setItem2((T2) arrayList.get(1));
     }
 
     public PairController(Pair<T1, T2> pair) {

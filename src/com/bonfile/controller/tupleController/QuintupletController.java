@@ -1,6 +1,7 @@
 package com.bonfile.controller.tupleController;
 
 import com.bonfile.model.tuple.Quintuplet;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class QuintupletController<T1, T2, T3, T4, T5> {
@@ -12,6 +13,15 @@ public class QuintupletController<T1, T2, T3, T4, T5> {
 
     public QuintupletController(T1 item1, T2 item2, T3 item3, T4 item4, T5 item5) {
         this.quintuplet = new Quintuplet<>(item1, item2, item3, item4, item5);
+    }
+
+    public QuintupletController(ArrayList<Object> arrayList) {
+        this.quintuplet = new Quintuplet<>();
+        this.quintuplet.setItem1((T1) arrayList.get(0));
+        this.quintuplet.setItem2((T2) arrayList.get(1));
+        this.quintuplet.setItem3((T3) arrayList.get(2));
+        this.quintuplet.setItem4((T4) arrayList.get(3));
+        this.quintuplet.setItem5((T5) arrayList.get(4));
     }
 
     public QuintupletController(Quintuplet<T1, T2, T3, T4, T5> quintuplet) {

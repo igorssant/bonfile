@@ -10,6 +10,7 @@ import com.bonfile.util.tokens.Tokens;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -380,8 +381,8 @@ public class ReadController {
         throw new RuntimeException("No List nor Array-like structure was found with given name.");
     }
 
-    private LinkedList<Object> readTuple(String currLine) {
-        LinkedList<Object> linkedList = new LinkedList<>();
+    private ArrayList<Object> readTuple(String currLine) {
+        ArrayList<Object> arrayList = new ArrayList<>();
         Integer startIndex = currLine.indexOf(Tokens.TOKENS.get("OPEN_PARENTHESIS")) + 1,
             jump = 0;
 
@@ -389,16 +390,16 @@ public class ReadController {
 
         while(currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {
             if(currLine.contains(Tokens.TOKENS.get("COMMA"))) {
-                linkedList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA"))));
+                arrayList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA"))));
                 jump = currLine.indexOf(Tokens.TOKENS.get("COMMA")) + 1;
                 currLine = currLine.substring(jump);
             } else {
-                linkedList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("CLOSE_PARENTHESIS"))));
+                arrayList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("CLOSE_PARENTHESIS"))));
                 currLine = currLine.substring(currLine.indexOf(Tokens.TOKENS.get("CLOSE_PARENTHESIS")));
             }
         }
 
-        return linkedList;
+        return arrayList;
     }
 
     public UnitController<Object> readUnit(String varName) throws IOException {
@@ -409,7 +410,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                return new UnitController<>(readTuple(currLine).pop());
+                return new UnitController<>(readTuple(currLine).get(0));
             }
         }
 
@@ -417,8 +418,6 @@ public class ReadController {
     }
 
     public PairController<Object, Object> readPair(String varName) throws IOException {
-        PairController<Object, Object> pairController = new PairController<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
         while(!this.read.isEOF()) {
@@ -426,10 +425,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                linkedList = readTuple(currLine);
-                pairController.setItem1(linkedList.get(0));
-                pairController.setItem2(linkedList.get(1));
-                return pairController;
+                return new PairController<>(readTuple(currLine));
             }
         }
 
@@ -437,8 +433,6 @@ public class ReadController {
     }
 
     public TripletController<Object, Object, Object> readTriplet(String varName) throws IOException {
-        TripletController<Object, Object, Object> tripletController = new TripletController<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
         while(!this.read.isEOF()) {
@@ -446,11 +440,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                linkedList = readTuple(currLine);
-                tripletController.setItem1(linkedList.get(0));
-                tripletController.setItem2(linkedList.get(1));
-                tripletController.setItem3(linkedList.get(2));
-                return tripletController;
+                return new TripletController<>(readTuple(currLine));
             }
         }
 
@@ -458,8 +448,6 @@ public class ReadController {
     }
 
     public QuartetController<Object, Object, Object, Object> readQuartet(String varName) throws IOException {
-        QuartetController<Object, Object, Object, Object> quartetController = new QuartetController<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
         while(!this.read.isEOF()) {
@@ -467,12 +455,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                linkedList = readTuple(currLine);
-                quartetController.setItem1(linkedList.get(0));
-                quartetController.setItem2(linkedList.get(1));
-                quartetController.setItem3(linkedList.get(2));
-                quartetController.setItem4(linkedList.get(3));
-                return quartetController;
+                return new QuartetController<>(readTuple(currLine));
             }
         }
 
@@ -480,8 +463,6 @@ public class ReadController {
     }
 
     public QuintupletController<Object, Object, Object, Object, Object> readQuintuplet(String varName) throws IOException {
-        QuintupletController<Object, Object, Object, Object, Object> quintupletController = new QuintupletController<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
         while(!this.read.isEOF()) {
@@ -489,13 +470,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                linkedList = readTuple(currLine);
-                quintupletController.setItem1(linkedList.get(0));
-                quintupletController.setItem2(linkedList.get(1));
-                quintupletController.setItem3(linkedList.get(2));
-                quintupletController.setItem4(linkedList.get(3));
-                quintupletController.setItem5(linkedList.get(4));
-                return quintupletController;
+                return new QuintupletController<>(readTuple(currLine));
             }
         }
 
@@ -503,8 +478,6 @@ public class ReadController {
     }
 
     public SextetController<Object, Object, Object, Object, Object, Object> readSextet(String varName) throws IOException {
-        SextetController<Object, Object, Object, Object, Object, Object> sextetController = new SextetController<>();
-        LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
         while(!this.read.isEOF()) {
@@ -512,14 +485,7 @@ public class ReadController {
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.contains(varName)) {
-                linkedList = readTuple(currLine);
-                sextetController.setItem1(linkedList.get(0));
-                sextetController.setItem2(linkedList.get(1));
-                sextetController.setItem3(linkedList.get(2));
-                sextetController.setItem4(linkedList.get(3));
-                sextetController.setItem5(linkedList.get(4));
-                sextetController.setItem5(linkedList.get(5));
-                return sextetController;
+                return new SextetController<>(readTuple(currLine));
             }
         }
 

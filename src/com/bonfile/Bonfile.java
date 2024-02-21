@@ -2,6 +2,7 @@ package com.bonfile;
 
 import com.bonfile.controller.appendController.AppendController;
 import com.bonfile.controller.bonfileObjectController.BonfileObjectController;
+import com.bonfile.controller.readController.ReadController;
 import com.bonfile.controller.tupleController.*;
 import com.bonfile.util.tokens.Tokens;
 import java.util.HashMap;
@@ -12,9 +13,18 @@ public class Bonfile {
         System.out.println(Tokens.TOKENS);
     }
 
-    public static void main(String [] args) {
-        String path = "/home/igorsssantana/Documents/trabalho/intelliJ/bonfile/src/scratch.bon";
+    public static void readTest(String path) {
+        try {
+            ReadController readController = new ReadController(path);
+            UnitController<Object> unitController = readController.readUnit("unit");
+            System.out.println(unitController.getItem());
+            readController.close();
+        } catch(Exception e) {
+            System.err.println("ERRO");
+        }
+    }
 
+    public static void writeTest(String path) {
         try {
             AppendController appendController = new AppendController(path);
             HashMap<String, String> hashMap = new HashMap<>();
@@ -67,5 +77,11 @@ public class Bonfile {
         } catch(Exception e) {
             System.err.println("ERRO");
         }
+    }
+
+    public static void main(String [] args) {
+        String path = "/home/igorsssantana/Documents/trabalho/intelliJ/bonfile/src/scratch.bon";
+//        writeTest(path);
+        readTest(path);
     }
 }

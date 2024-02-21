@@ -64,6 +64,10 @@ public class ReadController {
         this.read.rewind();
     }
 
+    public void close() throws IOException {
+        this.file.close();
+    }
+
     private Boolean hasCommentary(String currLine) {
         Boolean isInsideString = false;
 
@@ -388,7 +392,7 @@ public class ReadController {
 
         currLine = currLine.substring(startIndex);
 
-        while(currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {
+        while(!currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {
             if(currLine.contains(Tokens.TOKENS.get("COMMA"))) {
                 arrayList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA"))));
                 jump = currLine.indexOf(Tokens.TOKENS.get("COMMA")) + 1;

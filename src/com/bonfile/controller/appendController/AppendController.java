@@ -20,7 +20,7 @@ public class AppendController {
     public AppendController(String filePath) throws IOException, FileNotFoundException {
         String fileName = filePath.substring(filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1);
         this.file = new RandomAccessFile(FilePath.getFilePath(fileName), "rw");
-        this.append = new Append(fileName, filePath.substring(0, filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1), file.length());
+        this.append = new Append(fileName, filePath.substring(0, filePath.lastIndexOf(Tokens.TOKENS.get("SLASH_SIGN")) + 1), this.file.length());
         file.seek(file.length());
     }
 
@@ -601,7 +601,6 @@ public class AppendController {
     }
     private void writeTupleElement(Object[] array) throws IOException {
         Object lastElement = array[array.length - 1];
-        System.out.println(array.length);
 
         for(Object element : array) {
             this.file.writeBytes(element.toString());

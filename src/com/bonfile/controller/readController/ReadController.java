@@ -1,6 +1,7 @@
 package com.bonfile.controller.readController;
 
 import com.bonfile.controller.bonfileObjectController.BonfileObjectController;
+import com.bonfile.controller.tupleController.*;
 import com.bonfile.model.bonfileObject.BonfileObject;
 import com.bonfile.model.read.Read;
 import com.bonfile.util.fileHelper.FileHelper;
@@ -377,6 +378,152 @@ public class ReadController {
         }
 
         throw new RuntimeException("No List nor Array-like structure was found with given name.");
+    }
+
+    private LinkedList<Object> readTuple(String currLine) {
+        LinkedList<Object> linkedList = new LinkedList<>();
+        Integer startIndex = currLine.indexOf(Tokens.TOKENS.get("OPEN_PARENTHESIS")) + 1,
+            jump = 0;
+
+        currLine = currLine.substring(startIndex);
+
+        while(currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {
+            if(currLine.contains(Tokens.TOKENS.get("COMMA"))) {
+                linkedList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA"))));
+                jump = currLine.indexOf(Tokens.TOKENS.get("COMMA")) + 1;
+                currLine = currLine.substring(jump);
+            } else {
+                linkedList.add(currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("CLOSE_PARENTHESIS"))));
+                currLine = currLine.substring(currLine.indexOf(Tokens.TOKENS.get("CLOSE_PARENTHESIS")));
+            }
+        }
+
+        return linkedList;
+    }
+
+    public UnitController<Object> readUnit(String varName) throws IOException {
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                return new UnitController<>(readTuple(currLine).pop());
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
+    }
+
+    public PairController<Object, Object> readPair(String varName) throws IOException {
+        PairController<Object, Object> pairController = new PairController<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                linkedList = readTuple(currLine);
+                pairController.setItem1(linkedList.get(0));
+                pairController.setItem2(linkedList.get(1));
+                return pairController;
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
+    }
+
+    public TripletController<Object, Object, Object> readTriplet(String varName) throws IOException {
+        TripletController<Object, Object, Object> tripletController = new TripletController<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                linkedList = readTuple(currLine);
+                tripletController.setItem1(linkedList.get(0));
+                tripletController.setItem2(linkedList.get(1));
+                tripletController.setItem3(linkedList.get(2));
+                return tripletController;
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
+    }
+
+    public QuartetController<Object, Object, Object, Object> readQuartet(String varName) throws IOException {
+        QuartetController<Object, Object, Object, Object> quartetController = new QuartetController<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                linkedList = readTuple(currLine);
+                quartetController.setItem1(linkedList.get(0));
+                quartetController.setItem2(linkedList.get(1));
+                quartetController.setItem3(linkedList.get(2));
+                quartetController.setItem4(linkedList.get(3));
+                return quartetController;
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
+    }
+
+    public QuintupletController<Object, Object, Object, Object, Object> readQuintuplet(String varName) throws IOException {
+        QuintupletController<Object, Object, Object, Object, Object> quintupletController = new QuintupletController<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                linkedList = readTuple(currLine);
+                quintupletController.setItem1(linkedList.get(0));
+                quintupletController.setItem2(linkedList.get(1));
+                quintupletController.setItem3(linkedList.get(2));
+                quintupletController.setItem4(linkedList.get(3));
+                quintupletController.setItem5(linkedList.get(4));
+                return quintupletController;
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
+    }
+
+    public SextetController<Object, Object, Object, Object, Object, Object> readSextet(String varName) throws IOException {
+        SextetController<Object, Object, Object, Object, Object, Object> sextetController = new SextetController<>();
+        LinkedList<Object> linkedList = new LinkedList<>();
+        String currLine = "";
+
+        while(!this.read.isEOF()) {
+            currLine = FileHelper.removeSpaces(this.file.readLine());
+            this.read.setCurrentLine(this.file.getFilePointer());
+
+            if(currLine.contains(varName)) {
+                linkedList = readTuple(currLine);
+                sextetController.setItem1(linkedList.get(0));
+                sextetController.setItem2(linkedList.get(1));
+                sextetController.setItem3(linkedList.get(2));
+                sextetController.setItem4(linkedList.get(3));
+                sextetController.setItem5(linkedList.get(4));
+                sextetController.setItem5(linkedList.get(5));
+                return sextetController;
+            }
+        }
+
+        throw new RuntimeException("No Tuple was found with given name.");
     }
 
     public Integer readInteger() throws IOException {

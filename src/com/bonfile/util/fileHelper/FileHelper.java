@@ -31,6 +31,14 @@ public class FileHelper {
             + Tokens.TOKENS.get("DOUBLE_QUOTE_MARK");
     }
 
+    public static Object removeSingleQuoteMark(Object value) {
+        return value.toString().replace(Tokens.TOKENS.get("SINGLE_QUOTE_MARK"), "");
+    }
+
+    public static Object removeDoubleQuoteMark(Object value) {
+        return value.toString().replace(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"), "");
+    }
+
     public static Boolean isNumericType(Object obj) {
         return isPrimitiveType(obj, "int") || isPrimitiveType(obj, "float") || isPrimitiveType(obj, "double");
     }

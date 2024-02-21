@@ -390,7 +390,11 @@ public class ReadController {
         Integer startIndex = currLine.indexOf(Tokens.TOKENS.get("OPEN_PARENTHESIS")) + 1,
             jump = 0;
 
-        currLine = currLine.substring(startIndex);
+        currLine = FileHelper.removeDoubleQuoteMark(
+                FileHelper.removeSingleQuoteMark(
+                        currLine.substring(startIndex)
+                )
+        ).toString();
 
         while(!currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {
             if(currLine.contains(Tokens.TOKENS.get("COMMA"))) {

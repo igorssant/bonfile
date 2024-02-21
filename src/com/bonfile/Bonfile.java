@@ -17,7 +17,9 @@ public class Bonfile {
         try {
             ReadController readController = new ReadController(path);
             UnitController<Object> unitController = readController.readUnit("unit");
+            PairController<Object, Object> pairController = readController.readPair("pair");
             System.out.println(unitController.getItem());
+            System.out.println(pairController.getTuple());
             readController.close();
         } catch(Exception e) {
             System.err.println("ERRO");

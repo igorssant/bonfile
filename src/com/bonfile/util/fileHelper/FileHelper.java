@@ -2,6 +2,7 @@ package com.bonfile.util.fileHelper;
 
 import com.bonfile.util.tokens.Tokens;
 
+import java.util.IllegalFormatConversionException;
 import java.util.regex.Pattern;
 
 public class FileHelper {
@@ -47,22 +48,48 @@ public class FileHelper {
         return object instanceof Character || object instanceof String;
     }
 
-    public static Boolean isPrimitiveType(Object subject, String typeName) {
+    public static Boolean isPrimitiveType(Object subject, String typeName) throws NumberFormatException {
+        subject = removeDoubleQuoteMark(
+            removeSingleQuoteMark(
+                subject
+                    .toString()
+                    .substring(
+                        subject.toString().indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                        subject.toString().indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    )
+            )
+        );
+
         switch(typeName) {
             case "int":
-                return subject instanceof Integer;
+                try {
+                    Integer.parseInt(subject.toString());
+                    return true;
+                } catch(NumberFormatException e) {
+                    return false;
+                }
 
             case "float":
-                return subject instanceof Float;
+                try {
+                    Float.parseFloat(subject.toString());
+                    return true;
+                } catch(NumberFormatException e) {
+                    return false;
+                }
 
             case "double":
-                return subject instanceof Double;
+                try {
+                    Double.parseDouble(subject.toString());
+                    return true;
+                } catch(NumberFormatException e) {
+                    return false;
+                }
 
             case "bool":
                 return subject instanceof Boolean;
 
             case "char":
-                return subject instanceof Character;
+                return subject instanceof Character && subject.toString().length() == 1;
 
             case "str":
                 return subject instanceof String;

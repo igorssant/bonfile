@@ -8,7 +8,9 @@ public class BonfileObject {
     private String objectName;
     private String objectClass;
     private HashMap<String, Object> hashMap;
-    public BonfileObject(){}
+    public BonfileObject(){
+        this.hashMap = new HashMap<>();
+    }
 
     public BonfileObject(String objectName) {
         this.objectName = objectName;
@@ -45,14 +47,14 @@ public class BonfileObject {
     }
 
     public void setObjectClass(String objectClass) {
-        if(!this.objectClass.isEmpty()) {
+        if(this.objectClass.isEmpty()) {
+            this.objectClass = capitalize(objectClass);
+        } else {
             throw new RuntimeException(
                 "This object " + this.objectName + " already has a Class.\n"
                 + "Class: " + this.objectClass + " .\n"
                 + "If you really want to change its Class please use the ***resetClass(String)*** method."
             );
-        } else {
-            this.objectClass = capitalize(objectClass);
         }
     }
 

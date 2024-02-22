@@ -188,7 +188,7 @@ public class ReadController implements AutoCloseable {
             String varName = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")));
             Object varValue = currLine.substring(
                 currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")) + 2,
-                currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                currLine.indexOf(Tokens.TOKENS.get("SEMICOLON")) + 1
             );
 
             if(currLine.contains(Tokens.TOKENS.get("DICTIONARY"))) {

@@ -29,7 +29,7 @@ public class BonfileObjectController {
     }
 
     public BonfileObject getBonfileObject() {
-        return bonfileObject;
+        return this.bonfileObject;
     }
 
     public String getObjectName() {

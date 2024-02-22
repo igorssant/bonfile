@@ -24,7 +24,9 @@ public class Bonfile {
 
             PairController<Object, Object> pairController = readController.readPair("pair");
             System.out.println(pairController.getTuple());
+
             readController.rewind();
+
             BonfileObjectController bonfileObjectController = new BonfileObjectController(readController.readObject("someone"));
             System.out.println(bonfileObjectController.getInt("age"));
 

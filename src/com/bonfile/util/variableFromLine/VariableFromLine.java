@@ -19,30 +19,25 @@ public class VariableFromLine {
     }
 
     public static Integer intFromLine(String line) {
-        return Integer.parseInt(
-            line.substring(line.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) +  1,
-            line.indexOf(Tokens.TOKENS.get("SEMICOLON")))
-        );
+        return Integer.parseInt(getSubString(line));
     }
 
     public static Float floatFromLine(String line) {
-        return Float.parseFloat(
-            line.substring(line.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) +  1,
-            line.indexOf(Tokens.TOKENS.get("SEMICOLON")))
-        );
+        return Float.parseFloat(getSubString(line));
     }
 
     public static Double doubleFromLine(String line) {
-        return Double.parseDouble(
-            line.substring(line.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) +  1,
-            line.indexOf(Tokens.TOKENS.get("SEMICOLON")))
-        );
+        return Double.parseDouble(getSubString(line));
     }
 
     public static Boolean boolFromLine(String line) {
-        return Boolean.parseBoolean(
-            line.substring(line.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) +  1,
-            line.indexOf(Tokens.TOKENS.get("SEMICOLON")))
+        return Boolean.parseBoolean(getSubString(line));
+    }
+
+    private static String getSubString(String line) {
+        return line.substring(
+            line.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) +  1,
+            line.indexOf(Tokens.TOKENS.get("SEMICOLON"))
         );
     }
 }

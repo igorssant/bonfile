@@ -7,6 +7,7 @@ import com.bonfile.model.read.Read;
 import com.bonfile.util.fileHelper.FileHelper;
 import com.bonfile.util.filePath.FilePath;
 import com.bonfile.util.tokens.Tokens;
+import com.bonfile.util.variableFromLine.VariableFromLine;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -127,6 +128,20 @@ public class ReadController implements AutoCloseable {
         return removeMultiLineCommentary();
     }
 
+    private void ignoreObjectBody() throws IOException {
+        Integer curlyBracketCounter = 1;
+
+        while(curlyBracketCounter > 0) {
+            String currLine = this.file.readLine();
+
+            if(currLine.contains(Tokens.TOKENS.get("OPEN_CURLY_BRACKET"))) {
+                curlyBracketCounter++;
+            } else if (currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+                curlyBracketCounter--;
+            }
+        }
+    }
+
     private Short verifyListType(String line) {
         Integer indexOfLetSign = line.indexOf(Tokens.TOKENS.get("LET_SIGN"));
 
@@ -163,12 +178,15 @@ public class ReadController implements AutoCloseable {
         }
 
         while(!this.read.isEOF()) {
+            Long pastLine = this.read.getCurrentLine();
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
 
             if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
                 break;
             }
+
+            System.out.println("ACTUAL LINE: " + this.read.getCurrentLine() + " PAST LINE: " + pastLine);
 
             String varName = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")));
             Object varValue = currLine.substring(
@@ -213,6 +231,7 @@ public class ReadController implements AutoCloseable {
                     /*case 7:
                         bonfileObjectController.put(varName, linkedList.toArray());
                         break;*/
+
                     case 8:
                         bonfileObjectController.putBonfileObjectList(varName, (LinkedList<BonfileObject>) (LinkedList) Arrays.asList(linkedList));
                         break;
@@ -221,17 +240,17 @@ public class ReadController implements AutoCloseable {
                         throw new RuntimeException("Unhandled type was parsed.");
                 }
             } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
-                bonfileObjectController.put(varName, readChar(varName));
+                bonfileObjectController.put(varName, /*readChar(varName)*/VariableFromLine.charFromLine(varValue.toString(), this.file));
             } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
-                bonfileObjectController.put(varName, readString(varName));
+                bonfileObjectController.put(varName, /*readString(varName)*/VariableFromLine.stringFromLine(varValue.toString(), this.file));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
-                bonfileObjectController.put(varName, readBoolean(varName));
+                bonfileObjectController.put(varName, /*readBoolean(varName)*/VariableFromLine.boolFromLine(varValue.toString(), this.file));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
-                bonfileObjectController.put(varName, readInteger(varName));
+                bonfileObjectController.put(varName, /*readInteger(varName)*/VariableFromLine.intFromLine(varValue.toString(), this.file));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
-                bonfileObjectController.put(varName, readFloat(varName));
+                bonfileObjectController.put(varName, /*readFloat(varName)*/VariableFromLine.floatFromLine(varValue.toString(), this.file));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("DOUBLE"))) {
-                bonfileObjectController.put(varName, readDouble(varName));
+                bonfileObjectController.put(varName, /*readDouble(varName)*/VariableFromLine.doubleFromLine(varValue.toString(), this.file));
             } else {
                 bonfileObjectController.put(
                     varName,
@@ -390,9 +409,9 @@ public class ReadController implements AutoCloseable {
             jump = 0;
 
         currLine = FileHelper.removeDoubleQuoteMark(
-                FileHelper.removeSingleQuoteMark(
-                        currLine.substring(startIndex)
-                )
+            FileHelper.removeSingleQuoteMark(
+                currLine.substring(startIndex)
+            )
         ).toString();
 
         while(!currLine.equals(Tokens.TOKENS.get("CLOSE_PARENTHESIS") + Tokens.TOKENS.get("SEMICOLON"))) {

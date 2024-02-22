@@ -13,22 +13,28 @@ public class Bonfile {
         System.out.println(Tokens.TOKENS);
     }
 
+    public static HashMap<String, String> getAllTokens() {
+        return Tokens.TOKENS;
+    }
+
     public static void readTest(String path) {
-        try {
-            ReadController readController = new ReadController(path);
+        try(ReadController readController = new ReadController(path)) {
             UnitController<Object> unitController = readController.readUnit("unit");
-            PairController<Object, Object> pairController = readController.readPair("pair");
             System.out.println(unitController.getItem());
+
+            PairController<Object, Object> pairController = readController.readPair("pair");
             System.out.println(pairController.getTuple());
-            readController.close();
+            readController.rewind();
+            BonfileObjectController bonfileObjectController = new BonfileObjectController(readController.readObject("someone"));
+            System.out.println(bonfileObjectController.getInt("age"));
+
         } catch(Exception e) {
-            System.err.println("ERRO");
+            System.err.println("ERROR\n" + e.getMessage());
         }
     }
 
     public static void writeTest(String path) {
-        try {
-            AppendController appendController = new AppendController(path);
+        try(AppendController appendController = new AppendController(path)) {
             HashMap<String, String> hashMap = new HashMap<>();
             hashMap.put("CARRO", "VEICULO");
             hashMap.put("MOTO", "VEICULO");
@@ -74,8 +80,6 @@ public class Bonfile {
             appendController.writeTuple("quartet", quartetController);
             appendController.writeTuple("quintuplet", quintupletController);
             appendController.writeTuple("sextet", sextetController);
-
-            appendController.close();
         } catch(Exception e) {
             System.err.println("ERRO");
         }

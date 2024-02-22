@@ -20,7 +20,7 @@ public class Read extends File {
     }
 
     public Long getCurrentLine() {
-        return currentLine;
+        return this.currentLine;
     }
 
     public void setCurrentLine(Long currentLine) {

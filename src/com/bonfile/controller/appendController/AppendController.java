@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.*;
 
-public class AppendController {
+public class AppendController implements AutoCloseable {
     private Append append;
     private RandomAccessFile file;
 
@@ -585,9 +585,11 @@ public class AppendController {
     }
 
     public void rewind() throws IOException {
+        this.file.seek(0);
         append.rewind();
     }
 
+    @Override
     public void close() throws IOException {
         file.close();
     }

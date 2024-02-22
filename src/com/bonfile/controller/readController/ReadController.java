@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class ReadController {
+public class ReadController implements AutoCloseable {
     private Read read;
     private RandomAccessFile file;
 
@@ -60,10 +60,12 @@ public class ReadController {
         return this.read.getFilePath();
     }
 
-    public void rewind() {
+    public void rewind() throws IOException {
+        this.file.seek(0);
         this.read.rewind();
     }
 
+    @Override
     public void close() throws IOException {
         this.file.close();
     }
@@ -163,7 +165,6 @@ public class ReadController {
         while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
             this.read.setCurrentLine(this.file.getFilePointer());
-            file.seek(this.file.getFilePointer() - 1);
 
             if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
                 break;
@@ -171,67 +172,53 @@ public class ReadController {
 
             String varName = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")));
             Object varValue = currLine.substring(
-                currLine.indexOf(Tokens.TOKENS.get("LET_SIGN") + 2),
+                currLine.indexOf(Tokens.TOKENS.get("LET_SIGN")) + 2,
                 currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
             );
 
-            if(currLine.contains(Tokens.TOKENS.get("LET_SIGN"))) {
-                if(currLine.contains(Tokens.TOKENS.get("DICTIONARY"))) {
-                    bonfileObjectController.put(varName, readDict(varName));
-                } else if(currLine.contains(Tokens.TOKENS.get("OPEN_BRACKET"))) {
-                    LinkedList<Object> linkedList = readList(varName);
+            if(currLine.contains(Tokens.TOKENS.get("DICTIONARY"))) {
+                bonfileObjectController.put(varName, readDict(varName));
+            } else if(currLine.contains(Tokens.TOKENS.get("OPEN_BRACKET"))) {
+                LinkedList<Object> linkedList = readList(varName);
 
-                    switch(verifyListType(currLine)) {
-                        case 0:
-                            bonfileObjectController.putIntList(varName, (LinkedList<Integer>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                switch(verifyListType(currLine)) {
+                    case 0:
+                        bonfileObjectController.putIntList(varName, (LinkedList<Integer>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 1:
-                            bonfileObjectController.putBooleanList(varName, (LinkedList<Boolean>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 1:
+                        bonfileObjectController.putBooleanList(varName, (LinkedList<Boolean>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 2:
-                            bonfileObjectController.putFloatList(varName, (LinkedList<Float>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 2:
+                        bonfileObjectController.putFloatList(varName, (LinkedList<Float>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 3:
-                            bonfileObjectController.putDoubleList(varName, (LinkedList<Double>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 3:
+                        bonfileObjectController.putDoubleList(varName, (LinkedList<Double>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 4:
-                            bonfileObjectController.putCharList(varName, (LinkedList<Character>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 4:
+                        bonfileObjectController.putCharList(varName, (LinkedList<Character>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 5:
-                            bonfileObjectController.putStringList(varName, (LinkedList<String>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 5:
+                        bonfileObjectController.putStringList(varName, (LinkedList<String>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        case 6:
-                            bonfileObjectController.putDictList(varName, (LinkedList<HashMap<String, String>>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    case 6:
+                        bonfileObjectController.putDictList(varName, (LinkedList<HashMap<String, String>>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        /*case 7:
-                            bonfileObjectController.put(varName, linkedList.toArray());
-                            break;*/
-                        case 8:
-                            bonfileObjectController.putBonfileObjectList(varName, (LinkedList<BonfileObject>) (LinkedList) Arrays.asList(linkedList));
-                            break;
+                    /*case 7:
+                        bonfileObjectController.put(varName, linkedList.toArray());
+                        break;*/
+                    case 8:
+                        bonfileObjectController.putBonfileObjectList(varName, (LinkedList<BonfileObject>) (LinkedList) Arrays.asList(linkedList));
+                        break;
 
-                        default:
-                            throw new RuntimeException("Unhandled type was parsed.");
-                    }
-                } else {
-                    bonfileObjectController.put(
-                        varName,
-                        getObjectFromFile(
-                            currLine,
-                            currLine
-                                .indexOf(
-                                    Tokens.TOKENS.get("LET_SIGN")
-                                ),
-                            ""
-                        )
-                    );
+                    default:
+                        throw new RuntimeException("Unhandled type was parsed.");
                 }
             } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
                 bonfileObjectController.put(varName, readChar(varName));
@@ -243,8 +230,20 @@ public class ReadController {
                 bonfileObjectController.put(varName, readInteger(varName));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
                 bonfileObjectController.put(varName, readFloat(varName));
-            } else {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("DOUBLE"))) {
                 bonfileObjectController.put(varName, readDouble(varName));
+            } else {
+                bonfileObjectController.put(
+                    varName,
+                    getObjectFromFile(
+                        currLine,
+                        currLine
+                            .indexOf(
+                                Tokens.TOKENS.get("LET_SIGN")
+                            ),
+                        ""
+                    )
+                );
             }
         }
 

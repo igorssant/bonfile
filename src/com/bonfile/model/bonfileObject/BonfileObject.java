@@ -26,13 +26,13 @@ public class BonfileObject {
     }
 
     public void setObjectName(String objectName) {
-        if(!objectName.isEmpty()) {
+        if(this.objectName == null) {
+            this.objectName = objectName;
+        } else {
             throw new RuntimeException(
                 "The object " + this.objectName + " already has a name.\n"
                 + "If you really want to rename this class please use the ***renameObject(String)*** method."
             );
-        } else {
-            this.objectName = objectName;
         }
     }
 

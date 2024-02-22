@@ -240,17 +240,17 @@ public class ReadController implements AutoCloseable {
                         throw new RuntimeException("Unhandled type was parsed.");
                 }
             } else if(currLine.contains(Tokens.TOKENS.get("SINGLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
-                bonfileObjectController.put(varName, /*readChar(varName)*/VariableFromLine.charFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readChar(varName)*/VariableFromLine.charFromLine(varValue.toString()));
             } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
-                bonfileObjectController.put(varName, /*readString(varName)*/VariableFromLine.stringFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readString(varName)*/VariableFromLine.stringFromLine(varValue.toString()));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
-                bonfileObjectController.put(varName, /*readBoolean(varName)*/VariableFromLine.boolFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readBoolean(varName)*/VariableFromLine.boolFromLine(varValue.toString()));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
-                bonfileObjectController.put(varName, /*readInteger(varName)*/VariableFromLine.intFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readInteger(varName)*/VariableFromLine.intFromLine(varValue.toString()));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
-                bonfileObjectController.put(varName, /*readFloat(varName)*/VariableFromLine.floatFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readFloat(varName)*/VariableFromLine.floatFromLine(varValue.toString()));
             } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("DOUBLE"))) {
-                bonfileObjectController.put(varName, /*readDouble(varName)*/VariableFromLine.doubleFromLine(varValue.toString(), this.file));
+                bonfileObjectController.put(varName, /*readDouble(varName)*/VariableFromLine.doubleFromLine(varValue.toString()));
             } else {
                 bonfileObjectController.put(
                     varName,

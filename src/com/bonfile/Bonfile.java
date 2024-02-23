@@ -30,6 +30,10 @@ public class Bonfile {
             BonfileObjectController bonfileObjectController = new BonfileObjectController(readController.readObject("someone"));
             System.out.println(bonfileObjectController.getInt("age"));
 
+            readController.rewind();
+
+            System.out.println(readController.readInteger());
+
         } catch(Exception e) {
             System.err.println("ERROR\n" + e.getMessage());
         }

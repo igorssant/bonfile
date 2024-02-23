@@ -516,20 +516,21 @@ public class ReadController implements AutoCloseable {
     }
 
     public Integer readInteger() throws IOException {
-        while(true) {
+        while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
-                possibleValue = currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
-                );
+                possibleValue;
+
             this.read.setCurrentLine(this.file.getFilePointer());
 
-            if(this.read.getCurrentLine() == (this.file.length() - 1)) {
-                break;
-            }
+            if (currLine.contains(Tokens.TOKENS.get("EQUALS_SIGN")) && currLine.contains(Tokens.TOKENS.get("SEMICOLON"))) {
+                possibleValue = currLine.substring(
+                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
 
-            if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
-                return Integer.parseInt(possibleValue);
+                if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
+                    return Integer.parseInt(possibleValue);
+                }
             }
         }
 

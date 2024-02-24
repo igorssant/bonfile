@@ -558,14 +558,19 @@ public class ReadController implements AutoCloseable {
     public Float readFloat() throws IOException {
         while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
-                possibleValue = currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
-                );
+                    possibleValue;
+
             this.read.setCurrentLine(this.file.getFilePointer());
 
-            if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
-                return Float.parseFloat(possibleValue);
+            if (currLine.contains(Tokens.TOKENS.get("EQUALS_SIGN")) && currLine.contains(Tokens.TOKENS.get("SEMICOLON"))) {
+                possibleValue = currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+
+                if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
+                    return Float.parseFloat(possibleValue);
+                }
             }
         }
 
@@ -593,18 +598,23 @@ public class ReadController implements AutoCloseable {
     public Double readDouble() throws IOException {
         while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
-                possibleValue = currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
-                );
+                possibleValue;
+
             this.read.setCurrentLine(this.file.getFilePointer());
 
-            if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
-                return Double.parseDouble(possibleValue);
+            if (currLine.contains(Tokens.TOKENS.get("EQUALS_SIGN")) && currLine.contains(Tokens.TOKENS.get("SEMICOLON"))) {
+                possibleValue = currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+
+                if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
+                    return Double.parseDouble(possibleValue);
+                }
             }
         }
 
-        throw new RuntimeException("The gathered data is not a Float type.");
+        throw new RuntimeException("The gathered data is not a Double type.");
     }
 
     public Double readDouble(String doubleName) throws IOException {
@@ -628,14 +638,19 @@ public class ReadController implements AutoCloseable {
     public Boolean readBoolean() throws IOException {
         while(!this.read.isEOF()) {
             String currLine = FileHelper.removeSpaces(this.file.readLine()),
-                possibleValue = currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN") + 1),
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
-                );
+                possibleValue;
+
             this.read.setCurrentLine(this.file.getFilePointer());
 
-            if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
-                return Boolean.parseBoolean(possibleValue);
+            if (currLine.contains(Tokens.TOKENS.get("EQUALS_SIGN")) && currLine.contains(Tokens.TOKENS.get("SEMICOLON"))) {
+                possibleValue = currLine.substring(
+                        currLine.indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                        currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                );
+
+                if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
+                    return Boolean.parseBoolean(possibleValue);
+                }
             }
         }
 
@@ -667,7 +682,7 @@ public class ReadController implements AutoCloseable {
 
             if(currLine.length() > 4) {
                 /*
-                * EXPLANATION FOR ABOVE IF
+                * EXPLANATION FOR ABOVE IF:
                 * INSIDE THE BONFILE, A CHARACTER
                 * WOULD BE WRITTEN LIKE
                 * 'c';
@@ -707,7 +722,7 @@ public class ReadController implements AutoCloseable {
 
             if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
                 return currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + 1),
+                    currLine.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")) + 1,
                     currLine.lastIndexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))
                 );
             }

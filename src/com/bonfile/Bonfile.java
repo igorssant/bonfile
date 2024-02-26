@@ -34,6 +34,9 @@ public class Bonfile {
 
             System.out.println(readController.readInteger());
 
+            readController.rewind();
+
+            System.out.println(readController.readList("lista"));
         } catch(Exception e) {
             System.err.println("ERROR\n" + e.getMessage());
         }

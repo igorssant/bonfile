@@ -359,9 +359,19 @@ public class ReadController implements AutoCloseable {
         LinkedList<Object> linkedList = new LinkedList<>();
         String currLine = "";
 
-        while(!currLine.equals(Tokens.TOKENS.get("CLOSE_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+        while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
-            currLine = currLine.substring(0, currLine.indexOf(Tokens.TOKENS.get("COMMA")));
+
+            if(currLine.equals(Tokens.TOKENS.get("CLOSE_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+                break;
+            }
+
+            currLine = FileHelper.removeComma(
+                FileHelper.removeSingleQuoteMark(
+                    FileHelper.removeDoubleQuoteMark(currLine)
+                )
+            ).toString();
+
             linkedList.add(currLine);
         }
 

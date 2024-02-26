@@ -40,6 +40,10 @@ public class FileHelper {
         return value.toString().replace(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"), "");
     }
 
+    public static Object removeComma(Object value) {
+        return value.toString().replace(Tokens.TOKENS.get("COMMA"), "");
+    }
+
     public static Boolean isNumericType(Object obj) {
         return isPrimitiveType(obj, "int") || isPrimitiveType(obj, "float") || isPrimitiveType(obj, "double");
     }

@@ -19,24 +19,37 @@ public class Bonfile {
 
     public static void readTest(String path) {
         try(ReadController readController = new ReadController(path)) {
+            /* TEST READING OF TUPLES */
             UnitController<Object> unitController = readController.readUnit("unit");
             System.out.println(unitController.getItem());
 
             PairController<Object, Object> pairController = readController.readPair("pair");
             System.out.println(pairController.getTuple());
 
+            /* TEST READING BONFILE OBJECT */
             readController.rewind();
 
             BonfileObjectController bonfileObjectController = new BonfileObjectController(readController.readObject("someone"));
             System.out.println(bonfileObjectController.getInt("age"));
 
+            /* TEST READING OF PRIMITIVES */
             readController.rewind();
 
             System.out.println(readController.readInteger());
 
+            /* TEST READING LIST WITH NAME */
             readController.rewind();
 
             System.out.println(readController.readList("lista"));
+
+            /* TEST READING LIST WITHOUT NAME */
+            readController.rewind();
+
+            System.out.println(readController.readList());
+
+            readController.rewind();
+
+            System.out.println(readController.readDict());
         } catch(Exception e) {
             System.err.println("ERROR\n" + e.getMessage());
         }
@@ -45,15 +58,16 @@ public class Bonfile {
     public static void writeTest(String path) {
         try(AppendController appendController = new AppendController(path)) {
             HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put("CARRO", "VEICULO");
-            hashMap.put("MOTO", "VEICULO");
-            hashMap.put("BICICLETA", "POBRE");
-            hashMap.put("YATCH", "RICO");
+            hashMap.put("CAR", "FOUR WHEELS");
+            hashMap.put("MOTORBIKE", "TWO WHEELS");
+            hashMap.put("BIKE", "TWO WHEELS");
+            hashMap.put("YATCH", "NO WHEELS");
 
             appendController.writeDict("veiculos", hashMap);
+
             appendController.writePrimitive("valor_inteiro", 1);
-            appendController.writePrimitive("ponto_flutuante", 1.0f);
-            appendController.writePrimitive("precisao_dupla", 1.5d);
+            appendController.writePrimitive("ponto_flutuante", 1.2F);
+            appendController.writePrimitive("precisao_dupla", 1.5D);
             appendController.writePrimitive("valor_booleano", true);
             appendController.writePrimitive("caractere", 'a');
             appendController.writePrimitive("cadeia_caracteres", "Isto é uma frase!!!");
@@ -96,7 +110,7 @@ public class Bonfile {
 
     public static void main(String [] args) {
         String path = "/home/igorsssantana/Documents/trabalho/intelliJ/bonfile/src/scratch.bon";
-//        writeTest(path);
+        writeTest(path);
         readTest(path);
     }
 }

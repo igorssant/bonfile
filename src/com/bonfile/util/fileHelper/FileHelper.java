@@ -45,22 +45,51 @@ public class FileHelper {
     }
 
     public static Boolean isNumericType(Object obj) {
-        return isPrimitiveType(obj, "int") || isPrimitiveType(obj, "float") || isPrimitiveType(obj, "double");
+        return isPrimitiveType(obj, "int", false) || isPrimitiveType(obj, "float", false) || isPrimitiveType(obj, "double", false);
     }
 
     public static Boolean isTextType(Object object) {
         return object instanceof Character || object instanceof String;
     }
 
-    public static Boolean isPrimitiveType(Object subject, String typeName) throws NumberFormatException {
+    private static Boolean isPrimitiveType(Object subject, String typeName) {
+        switch(typeName) {
+            case "int":
+                return subject instanceof Integer;
+
+            case "float":
+                return subject instanceof Float;
+
+            case "double":
+                return subject instanceof Double;
+
+            case "bool":
+                return subject instanceof Boolean;
+
+            case "char":
+                return subject instanceof Character && subject.toString().length() == 1;
+
+            case "str":
+                return subject instanceof String;
+
+            default:
+                return false;
+        }
+    }
+
+    public static Boolean isPrimitiveType(Object subject, String typeName, Boolean writeMode) throws NumberFormatException {
+        if(writeMode) {
+            return isPrimitiveType(subject, typeName);
+        }
+
         subject = removeDoubleQuoteMark(
             removeSingleQuoteMark(
                 subject
-                    .toString()
-                    .substring(
-                        subject.toString().indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
-                        subject.toString().indexOf(Tokens.TOKENS.get("SEMICOLON"))
-                    )
+                .toString()
+                .substring(
+                    subject.toString().indexOf(Tokens.TOKENS.get("EQUALS_SIGN")) + 1,
+                    subject.toString().indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                )
             )
         );
 

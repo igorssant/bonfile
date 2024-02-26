@@ -240,13 +240,13 @@ public class ReadController implements AutoCloseable {
                 bonfileObjectController.put(varName, VariableFromLine.charFromLine(varValue.toString()));
             } else if(currLine.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK") + Tokens.TOKENS.get("SEMICOLON"))) {
                 bonfileObjectController.put(varName, VariableFromLine.stringFromLine(varValue.toString()));
-            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("BOOLEAN"), false)) {
                 bonfileObjectController.put(varName, VariableFromLine.boolFromLine(varValue.toString()));
-            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("INTEGER"), false)) {
                 bonfileObjectController.put(varName, VariableFromLine.intFromLine(varValue.toString()));
-            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("FLOAT"), false)) {
                 bonfileObjectController.put(varName, VariableFromLine.floatFromLine(varValue.toString()));
-            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("DOUBLE"))) {
+            } else if(FileHelper.isPrimitiveType(varValue, Tokens.TOKENS.get("DOUBLE"), false)) {
                 bonfileObjectController.put(varName, VariableFromLine.doubleFromLine(varValue.toString()));
             } else {
                 bonfileObjectController.put(
@@ -308,17 +308,21 @@ public class ReadController implements AutoCloseable {
         HashMap<String, String> hashMap = new HashMap<>();
         String currLine = "";
 
-        while(!currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+        while(!this.read.isEOF()) {
             currLine = FileHelper.removeSpaces(this.file.readLine());
+
+            if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
+                break;
+            }
+
             hashMap.put(
                 currLine.substring(
                     0,
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
+                    currLine.indexOf(Tokens.TOKENS.get("COLON"))
                 ),
-                currLine.substring(
-                    currLine.indexOf(Tokens.TOKENS.get("SEMICOLON") + 1),
-                    currLine.indexOf(Tokens.TOKENS.get("COMMA"))
-                )
+                FileHelper.removeComma(
+                    currLine.substring(currLine.indexOf(Tokens.TOKENS.get("COLON")) + 1)
+                ).toString()
             );
         }
 
@@ -538,7 +542,7 @@ public class ReadController implements AutoCloseable {
                     currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
 
-                if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"))) {
+                if(currLine.contains(Tokens.TOKENS.get("INTEGER")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("INTEGER"), false)) {
                     return Integer.parseInt(possibleValue);
                 }
             }
@@ -578,7 +582,7 @@ public class ReadController implements AutoCloseable {
                         currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
 
-                if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"))) {
+                if(currLine.contains(Tokens.TOKENS.get("FLOAT")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("FLOAT"), false)) {
                     return Float.parseFloat(possibleValue);
                 }
             }
@@ -618,7 +622,7 @@ public class ReadController implements AutoCloseable {
                         currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
 
-                if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"))) {
+                if(currLine.contains(Tokens.TOKENS.get("DOUBLE")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("DOUBLE"), false)) {
                     return Double.parseDouble(possibleValue);
                 }
             }
@@ -658,7 +662,7 @@ public class ReadController implements AutoCloseable {
                         currLine.indexOf(Tokens.TOKENS.get("SEMICOLON"))
                 );
 
-                if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"))) {
+                if(currLine.contains(Tokens.TOKENS.get("BOOLEAN")) || FileHelper.isPrimitiveType(possibleValue, Tokens.TOKENS.get("BOOLEAN"), false)) {
                     return Boolean.parseBoolean(possibleValue);
                 }
             }

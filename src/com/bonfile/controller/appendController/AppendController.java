@@ -95,17 +95,17 @@ public class AppendController implements AutoCloseable {
 
             indentFile();
 
-            if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("INTEGER"))) {
+            if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("INTEGER"), true)) {
                 writeInteger(key, (Integer) entry.getValue());
-            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("FLOAT"))) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("FLOAT"), true)) {
                 writeFloat(key,(Float) entry.getValue());
-            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("DOUBLE"))) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("DOUBLE"), true)) {
                 writeDouble(key,(Double) entry.getValue());
-            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("BOOLEAN"))) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("BOOLEAN"), true)) {
                 writeBoolean(key,(Boolean) entry.getValue());
-            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("CHAR"))) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("CHAR"), true)) {
                 writeChar(key,(Character) entry.getValue());
-            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(entry.getValue(), Tokens.TOKENS.get("STRING"), true)) {
                 writeString(key,(String) entry.getValue());
             } else if(entry.getValue() instanceof BonfileObject) {
                 writeObject((BonfileObject) entry.getValue());
@@ -193,15 +193,15 @@ public class AppendController implements AutoCloseable {
         openBracket(false);
         append.increaseIndentation();
 
-        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"))) {
+        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 2, iterator.hasNext());
             }
-        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"))) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 3, iterator.hasNext());
             }
-        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"))) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 1, iterator.hasNext());
             }
@@ -223,15 +223,15 @@ public class AppendController implements AutoCloseable {
         openBracket(false);
         append.increaseIndentation();
 
-        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"))) {
+        if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("CHAR"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 2, iterator.hasNext());
             }
-        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"))) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("STRING"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 3, iterator.hasNext());
             }
-        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"))) {
+        } else if(FileHelper.isPrimitiveType(linkedList.getFirst(), Tokens.TOKENS.get("BOOLEAN"), true)) {
             while(iterator.hasNext()){
                 writeListMember(iterator.next(), 1, iterator.hasNext());
             }
@@ -435,17 +435,17 @@ public class AppendController implements AutoCloseable {
     }
 
     public void writePrimitive(Object variable) throws IOException {
-        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"))) {
+        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"), true)) {
             writeInteger((Integer) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"), true)) {
             writeFloat((Float) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"), true)) {
             writeDouble((Double) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"), true)) {
             writeBoolean((Boolean) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"), true)) {
             writeChar((Character) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"), true)) {
             writeString((String) variable);
         }
 
@@ -453,17 +453,17 @@ public class AppendController implements AutoCloseable {
     }
 
     public void writePrimitive(String varName, Object variable) throws IOException {
-        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"))) {
+        if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("INTEGER"), true)) {
             writeInteger(varName, (Integer) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"))) {
-            writeFloat(varName, (Float) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("DOUBLE"), true)) {
             writeDouble(varName, (Double) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("FLOAT"), true)) {
+            writeFloat(varName, (Float) variable);
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("BOOLEAN"), true)) {
             writeBoolean(varName, (Boolean) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("CHAR"), true)) {
             writeChar(varName, (Character) variable);
-        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"))) {
+        } else if(FileHelper.isPrimitiveType(variable, Tokens.TOKENS.get("STRING"), true)) {
             writeString(varName, (String) variable);
         }
 
@@ -619,9 +619,9 @@ public class AppendController implements AutoCloseable {
         writeVariable(varName, 7);
         openParenthesis();
 
-        if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("CHAR"))) {
+        if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("CHAR"), true)) {
             unitController.setItem(FileHelper.addSingleQuoteMark(unitController.getItem()));
-        } else if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("STRING"))) {
+        } else if(FileHelper.isPrimitiveType(unitController.getItem(), Tokens.TOKENS.get("STRING"), true)) {
             unitController.setItem(FileHelper.addDoubleQuoteMark(unitController.getItem()));
         }
 
@@ -637,9 +637,9 @@ public class AppendController implements AutoCloseable {
         openParenthesis();
 
         for(int i = 0; i < listAsArray.length; i++) {
-            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"), true)) {
                 listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
-            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"), true)) {
                 listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }
@@ -656,9 +656,9 @@ public class AppendController implements AutoCloseable {
         openParenthesis();
 
         for(int i = 0; i < listAsArray.length; i++) {
-            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"), true)) {
                 listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
-            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"), true)) {
                 listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }
@@ -675,9 +675,9 @@ public class AppendController implements AutoCloseable {
         openParenthesis();
 
         for(int i = 0; i < listAsArray.length; i++) {
-            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"), true)) {
                 listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
-            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"), true)) {
                 listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }
@@ -694,9 +694,9 @@ public class AppendController implements AutoCloseable {
         openParenthesis();
 
         for(int i = 0; i < listAsArray.length; i++) {
-            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"), true)) {
                 listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
-            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"), true)) {
                 listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }
@@ -713,9 +713,9 @@ public class AppendController implements AutoCloseable {
         openParenthesis();
 
         for(int i = 0; i < listAsArray.length; i++) {
-            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"))) {
+            if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("CHAR"), true)) {
                 listAsArray[i] = FileHelper.addSingleQuoteMark(listAsArray[i]);
-            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"))) {
+            } else if(FileHelper.isPrimitiveType(listAsArray[i], Tokens.TOKENS.get("STRING"), true)) {
                 listAsArray[i] = FileHelper.addDoubleQuoteMark(listAsArray[i]);
             }
         }

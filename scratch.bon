@@ -1,11 +1,11 @@
 veiculos::dict = {
-	YATCH : RICO,
-	MOTO : VEICULO,
-	BICICLETA : POBRE,
-	CARRO : VEICULO
+	CAR : FOUR WHEELS,
+	YATCH : NO WHEELS,
+	MOTORBIKE : TWO WHEELS,
+	BIKE : TWO WHEELS
 };
 valor_inteiro::int = 1;
-ponto_flutuante::float = 1.0;
+ponto_flutuante::float = 1.2;
 precisao_dupla::double = 1.5;
 valor_booleano::bool = true;
 caractere::char = 'a';

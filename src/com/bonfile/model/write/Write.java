@@ -3,7 +3,7 @@ package com.bonfile.model.write;
 import com.bonfile.model.file.File;
 
 public class Write extends File {
-    private Integer currentLine;
+    private Long currentLine;
 
     public Write() {
         super();
@@ -11,7 +11,7 @@ public class Write extends File {
 
     public Write(String fileName, String filePath, Long fileLength) {
         super(fileName, filePath, fileLength);
-        this.currentLine = 0;
+        this.currentLine = 0L;
     }
 
     @Override
@@ -19,11 +19,11 @@ public class Write extends File {
         return super.getFileName();
     }
 
-    public Integer getCurrentLine() {
+    public Long getCurrentLine() {
         return currentLine;
     }
 
-    public void setCurrentLine(Integer currentLine) {
+    public void setCurrentLine(Long currentLine) {
         this.currentLine = currentLine;
     }
 
@@ -33,7 +33,7 @@ public class Write extends File {
     }
 
     public void rewind() {
-        setCurrentLine(0);
+        setCurrentLine(0L);
     }
 
     public void increaseIndentation() {

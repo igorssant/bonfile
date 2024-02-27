@@ -25,7 +25,7 @@ public class AppendController implements AutoCloseable {
     }
 
     private Append getAppend() {
-        return append;
+        return this.append;
     }
 
     public void setAppend(Append append) {
@@ -505,7 +505,7 @@ public class AppendController implements AutoCloseable {
     }
 
     private void writeDouble(Double variable) throws IOException {
-        file.writeBytes(
+            file.writeBytes(
             variable
             + Tokens.TOKENS.get("SEMICOLON")
             + Tokens.TOKENS.get("NEW_LINE")

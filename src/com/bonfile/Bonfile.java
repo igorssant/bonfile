@@ -40,7 +40,7 @@ public class Bonfile {
             /* TEST READING LIST WITH NAME */
             readController.rewind();
 
-            System.out.println(readController.readList("lista"));
+            System.out.println(readController.readList("list"));
 
             /* TEST READING LIST WITHOUT NAME */
             readController.rewind();
@@ -63,14 +63,14 @@ public class Bonfile {
             hashMap.put("BIKE", "TWO WHEELS");
             hashMap.put("YATCH", "NO WHEELS");
 
-            appendController.writeDict("veiculos", hashMap);
+            appendController.writeDict("vehicles", hashMap);
 
-            appendController.writePrimitive("valor_inteiro", 1);
-            appendController.writePrimitive("ponto_flutuante", 1.2F);
-            appendController.writePrimitive("precisao_dupla", 1.5D);
-            appendController.writePrimitive("valor_booleano", true);
-            appendController.writePrimitive("caractere", 'a');
-            appendController.writePrimitive("cadeia_caracteres", "Isto é uma frase!!!");
+            appendController.writePrimitive("integer_value", 1);
+            appendController.writePrimitive("floating_point", 1.2F);
+            appendController.writePrimitive("double_precision", 1.5D);
+            appendController.writePrimitive("boolean_value", true);
+            appendController.writePrimitive("character", 'a');
+            appendController.writePrimitive("character_array", "It is an array!!!");
 
             LinkedList<Object> linkedList = new LinkedList<>();
             linkedList.add("ABRA");
@@ -80,7 +80,7 @@ public class Bonfile {
             linkedList.add("HAUNTER");
             linkedList.add("GENGAR");
 
-            appendController.writeList("lista", linkedList, 5);
+            appendController.writeList("list", linkedList, 5);
 
             BonfileObjectController bonfileObjectController = new BonfileObjectController("someone", "person");
             bonfileObjectController.put("age", 23);
@@ -104,7 +104,7 @@ public class Bonfile {
             appendController.writeTuple("quintuplet", quintupletController);
             appendController.writeTuple("sextet", sextetController);
         } catch(Exception e) {
-            System.err.println("ERRO");
+            System.err.println("ERROR");
         }
     }
 

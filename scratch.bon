@@ -1,16 +1,16 @@
-veiculos::dict = {
+vehicles::dict = {
 	CAR : FOUR WHEELS,
 	YATCH : NO WHEELS,
 	MOTORBIKE : TWO WHEELS,
 	BIKE : TWO WHEELS
 };
-valor_inteiro::int = 1;
-ponto_flutuante::float = 1.2;
-precisao_dupla::double = 1.5;
-valor_booleano::bool = true;
-caractere::char = 'a';
-cadeia_caracteres::str = "Isto é uma frase!!!";
-lista::str = [
+integer_value::int = 1;
+floating_point::float = 1.2;
+double_precision::double = 1.5;
+boolean_value::bool = true;
+character::char = 'a';
+character_array::str = "It is an array!!!";
+list::str = [
 	"ABRA",
 	"KADABRA",
 	"ALAKAZAN",

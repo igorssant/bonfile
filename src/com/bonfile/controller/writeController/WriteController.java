@@ -38,9 +38,9 @@ public class WriteController implements AutoCloseable {
 
     private void closeParenthesis() throws IOException {
         this.file.writeBytes(
-                Tokens.TOKENS.get("CLOSE_PARENTHESIS")
-                        + Tokens.TOKENS.get("SEMICOLON")
-                        + Tokens.TOKENS.get("NEW_LINE")
+            Tokens.TOKENS.get("CLOSE_PARENTHESIS")
+            + Tokens.TOKENS.get("SEMICOLON")
+            + Tokens.TOKENS.get("NEW_LINE")
         );
     }
 

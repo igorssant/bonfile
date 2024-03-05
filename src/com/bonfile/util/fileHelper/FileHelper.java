@@ -1,8 +1,6 @@
 package com.bonfile.util.fileHelper;
 
 import com.bonfile.util.tokens.Tokens;
-
-import java.util.IllegalFormatConversionException;
 import java.util.regex.Pattern;
 
 public class FileHelper {
@@ -17,6 +15,16 @@ public class FileHelper {
     }
 
     public static String removeSpaces(String str) {
+        if(str.contains(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK"))) {
+            String doNotModify = str.substring(str.indexOf(Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")));
+            return str.substring(
+                0,
+                str.indexOf(
+                    Tokens.TOKENS.get("DOUBLE_QUOTE_MARK")
+                )
+            ).replaceAll("\\s+", "") + doNotModify;
+        }
+
         return str.replaceAll("\\s+","");
     }
 

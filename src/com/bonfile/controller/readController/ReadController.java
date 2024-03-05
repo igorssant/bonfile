@@ -304,12 +304,15 @@ public class ReadController implements AutoCloseable {
         throw new IOException("Invalid name.\nCould not find any Object with given name.");
     }
 
+    private static String removeWhiteSpacesFromDictLine(String line) {
+        return line.substring(line.lastIndexOf("\t") + 1);
+    }
+
     private HashMap<String, String> readDictLine() throws IOException {
         HashMap<String, String> hashMap = new HashMap<>();
-        String currLine = "";
 
         while(!this.read.isEOF()) {
-            currLine = FileHelper.removeSpaces(this.file.readLine());
+            String currLine = removeWhiteSpacesFromDictLine(this.file.readLine());
 
             if(currLine.equals(Tokens.TOKENS.get("CLOSE_CURLY_BRACKET") + Tokens.TOKENS.get("SEMICOLON"))) {
                 break;
@@ -318,10 +321,10 @@ public class ReadController implements AutoCloseable {
             hashMap.put(
                 currLine.substring(
                     0,
-                    currLine.indexOf(Tokens.TOKENS.get("COLON"))
+                    currLine.indexOf(Tokens.TOKENS.get("COLON")) - 1
                 ),
                 FileHelper.removeComma(
-                    currLine.substring(currLine.indexOf(Tokens.TOKENS.get("COLON")) + 1)
+                    currLine.substring(currLine.indexOf(Tokens.TOKENS.get("COLON")) + 2)
                 ).toString()
             );
         }

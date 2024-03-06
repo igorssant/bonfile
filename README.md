@@ -76,7 +76,7 @@ booleanValue::bool = false;
 ```
 ### Any other type must have a variable name linked to it
 #### *Objects might have any data type assigned to them*
-```text
+```txt
 johnDoe::Person = {
     age::int = 35;
     height::float = 1.78; // in meters
@@ -142,7 +142,7 @@ TODO
 
 - MVC project pattern;
 - Singleton;
-  - Only one instance of a class will te active at a time
+  - Only one instance of a class (*Read*, *Write* and *Append*) will te active at a time
 - Mediator.
 <hr>
 </section>

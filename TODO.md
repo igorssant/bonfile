@@ -33,7 +33,7 @@
 <hr>
 
 ## Third point
-- [ ] Implement the *Read* Class
+- [x] Implement the *Read* Class
   * The skeleton is already done
   * The focus is on the *Controller* Class for it
 - [ ] Implement the ***Singleton* project pattern** for both write, read, append and read&write classes
@@ -56,7 +56,7 @@
 <hr>
 
 ## Fifth point
-- [ ] Integrate *File* Class with *BonfileObject* Class
+- [x] Integrate *File* Class with *BonfileObject* Class
 - [ ] Attach both Classes in *Write* & *Read* Classes
   * (*Append* & *ReadWrite* included)
 <br>

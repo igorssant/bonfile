@@ -1,3 +1,4 @@
 package com.bonfile.Object;
 
-public class ObjectData {}
+public class ObjectModel {
+}

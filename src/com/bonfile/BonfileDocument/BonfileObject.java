@@ -12,6 +12,16 @@ public class BonfileObject {
         this.reader = new BufferedReader(new FileReader(filePath));
     }
 
+    public BonfileObject(FileReader fileReader) {
+        this.onlyRead = true;
+        this.reader = new BufferedReader(fileReader);
+    }
+
+    public BonfileObject(BufferedReader bufferedReader) {
+        this.onlyRead = true;
+        this.reader = bufferedReader;
+    }
+
     public BonfileObject(String filePath, Boolean readOnly) throws IOException {
         this.onlyRead = readOnly;
         this.reader = new BufferedReader(new FileReader(filePath));
@@ -19,6 +29,18 @@ public class BonfileObject {
         if(!onlyRead) {
             this.writer = new BufferedWriter(new FileWriter(filePath));
         }
+    }
+
+    public BonfileObject(FileReader fileReader, FileWriter fileWriter) {
+        this.onlyRead = false;
+        this.reader = new BufferedReader(fileReader);
+        this.writer = new BufferedWriter(fileWriter);
+    }
+
+    public BonfileObject(BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+        this.onlyRead = true;
+        this.reader = bufferedReader;
+        this.writer = bufferedWriter;
     }
 
     public void close() throws IOException {

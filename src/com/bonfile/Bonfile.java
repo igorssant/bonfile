@@ -1,7 +1,6 @@
 package com.bonfile;
 
 import com.bonfile.BonfileDocument.BonfileObject;
-
 import java.io.IOException;
 
 public class Bonfile {
